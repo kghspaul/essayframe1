@@ -2,8 +2,8 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Essay Coach</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Essay Coach Mobile</title>
     
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -15,37 +15,48 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX'); // 請將 G-XXXXXXXXXX 換成您的 ID
+      gtag('config', 'G-XXXXXXXXXX');
     </script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-        /* 自定義滾動條 */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #D1D5DB; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 動畫效果 */
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .animate-slide-up { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
     </style>
 </head>
-<body class="bg-[#F7F7F5] text-[#37352F] h-screen overflow-hidden">
-    <div id="root"></div>
+<body class="bg-[#F7F7F5] text-[#37352F] h-[100dvh] overflow-hidden">
+    <div id="root" class="h-full"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef, useMemo } = React;
+        const { useState, useEffect, useRef } = React;
 
-        // --- ICON 資源 (SVG Strings) ---
+        // --- ICONS (SVG) ---
         const Icons = {
-            BookOpen: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
-            Play: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>,
-            Pause: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>,
-            Square: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>,
-            Eye: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
-            Info: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>,
-            ToggleLeft: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"/><circle cx="8" cy="12" r="3"/></svg>,
-            ToggleRight: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EB5757" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"/><circle cx="16" cy="12" r="3"/></svg>
+            Book: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>,
+            FileText: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>,
+            Play: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>,
+            Pause: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>,
+            Square: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>,
+            Eye: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
+            X: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
+            ToggleLeft: () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"/><circle cx="8" cy="12" r="3"/></svg>,
+            ToggleRight: () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EB5757" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"/><circle cx="16" cy="12" r="3"/></svg>
         };
 
-        // --- 資料庫 (Data Source) ---
+        // --- 資料庫 (保持不變) ---
         const VOCAB_DB = {
             "prevalence": { kk: "[ˋprɛvələns]", pos: "n.", def: "流行；普及", ex: "The prevalence of smartphones is undeniable." },
             "indispensable": { kk: "[͵ɪndɪsˋpɛnsəb!]", pos: "adj.", def: "不可或缺的", ex: "Water is indispensable to life." },
@@ -116,59 +127,44 @@ While the aforementioned observations provide the context, a deeper reflection r
         const ESSAYS_DATA = [
             {
                 id: 1,
-                title: "範文 1: Hand-shaken Drinks",
+                title: "Hand-shaken Drinks",
                 content: "In the context of modern existence, few subjects evoke as much contemplation as the prevalence of hand-shaken drinks in Taiwan. Whether viewed through the lens of Taiwanese food culture or daily habit, it is evident that carrying a cup of bubble tea has become a symbol of local life. Specifically, regarding the reasons behind their immense popularity, one cannot help but notice the unparalleled convenience and the high degree of customization available, allowing consumers to tailor sweetness levels and toppings to their exact preferences. This phenomenon is not merely superficial; it serves as a mirror reflecting the Taiwanese pursuit of 'tiny happiness' and the desire for personalized comfort amidst a fast-paced lifestyle.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding the balance between psychological satisfaction and physical well-being. If I were to evaluate my family's perspective on these beverages, I would contend that while we acknowledge them as a delightful treat that relieves stress, we remain wary of the potential health risks associated with excessive sugar intake. Consequently, to enjoy these drinks without compromising our health, my approach would be to treat them as an occasional indulgence rather than a daily necessity, and to opt for sugar-free tea or fresh fruit alternatives. Ultimately, the hand-shaken drink culture acts as a catalyst, compelling us to rethink how we make conscious dietary choices in an environment filled with temptation."
             },
             {
                 id: 2,
-                title: "範文 2: Pride of Taiwan",
+                title: "Pride of Taiwan",
                 content: "In the context of modern existence, few subjects evoke as much contemplation as the unique charm of my homeland, Taiwan. Whether viewed through the lens of a local resident or an international traveler, it is evident that this island possesses a distinct allure that captivates the soul. Specifically, regarding what makes me proudest, one cannot help but notice the warmth of human kindness and the convenient, sleepless vibrancy of our night markets. This phenomenon is not merely superficial; it serves as a mirror reflecting Taiwan's spirit of inclusivity and its dynamic, unflagging energy.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we can project this soft power to the global stage. If I were to evaluate the best strategy to introduce these features, I would contend that experiential storytelling is far more powerful than mere slogans. Consequently, to market Taiwan to the world, my approach would be to launch social media campaigns that invite influencers to 'live a day as a local,' immersing them in the authentic warmth and culinary delights we offer. Ultimately, this cultural promotion acts as a catalyst, compelling us to rethink how we define our identity and share our treasures with the global community."
             },
             {
                 id: 3,
-                title: "範文 3: Doomsday Prediction",
+                title: "Doomsday Prediction",
                 content: "In the context of modern existence, few subjects evoke as much contemplation as the recurring emergence of doomsday predictions. Whether viewed through the lens of superstition or scientific caution, it is evident that such predictions often trigger a mix of panic and suspicion among the public. Specifically, regarding the prediction of a massive earthquake in July 2025, one cannot help but notice how easily fear propagates, affecting even tourism and daily decisions. This phenomenon is not merely superficial; it serves as a mirror reflecting humanity's inherent vulnerability and our desperate need for certainty in an unpredictable world.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we perceive the value of our limited time. If I were to evaluate the credibility of these prophecies, I would contend that while they are probably not scientifically accurate, they are a valuable philosophical reminder of our mortality. Consequently, if the end of the world were truly imminent, my approach would not be to give in to despair, but to spend my final moments embracing my loved ones and expressing gratitude for the life I have lived. Ultimately, this doomsday scenario acts as a catalyst, compelling us to rethink how we cherish every present moment rather than fearing a hypothetical future."
             }
         ];
 
-        // --- 元件 (Components) ---
-        
-        // Audio Player Hook
+        // --- 核心元件 (Components) ---
+
         const useAudioPlayer = (text) => {
-            const [state, setState] = useState('idle'); // idle, playing, paused
+            const [state, setState] = useState('idle'); 
             const audioRef = useRef(null);
             const synthRef = useRef(window.speechSynthesis);
-            const utteranceRef = useRef(null);
 
             const stop = () => {
-                if (audioRef.current) {
-                    audioRef.current.pause();
-                    audioRef.current.currentTime = 0;
-                }
-                if (synthRef.current.speaking || synthRef.current.paused) {
-                    synthRef.current.cancel();
-                }
+                if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
+                if (synthRef.current.speaking || synthRef.current.paused) { synthRef.current.cancel(); }
                 setState('idle');
             };
 
             const play = async () => {
-                stop(); // Reset previous
+                stop();
                 setState('playing');
-
-                // Try Google TTS First
                 try {
-                    // Encode only standard chars to avoid URL issues
                     const encoded = encodeURIComponent(text);
                     const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encoded}`;
                     const audio = new Audio(url);
                     audioRef.current = audio;
-                    
                     audio.onended = () => setState('idle');
-                    audio.onerror = () => {
-                        console.warn("Google TTS failed, switching to fallback.");
-                        playFallback();
-                    };
-                    
+                    audio.onerror = () => playFallback();
                     await audio.play();
                 } catch (e) {
                     playFallback();
@@ -177,180 +173,144 @@ While the aforementioned observations provide the context, a deeper reflection r
 
             const playFallback = () => {
                 const u = new SpeechSynthesisUtterance(text);
-                u.lang = 'en-US';
-                u.rate = 0.9;
+                u.lang = 'en-US'; u.rate = 0.9;
                 u.onend = () => setState('idle');
-                utteranceRef.current = u;
                 synthRef.current.speak(u);
             };
 
             const pause = () => {
-                if (audioRef.current && !audioRef.current.paused) {
-                    audioRef.current.pause();
-                    setState('paused');
-                } else if (synthRef.current.speaking && !synthRef.current.paused) {
-                    synthRef.current.pause();
-                    setState('paused');
-                }
+                if (audioRef.current && !audioRef.current.paused) { audioRef.current.pause(); setState('paused'); }
+                else if (synthRef.current.speaking) { synthRef.current.pause(); setState('paused'); }
             };
 
             const resume = () => {
-                 if (audioRef.current && audioRef.current.paused) {
-                    audioRef.current.play();
-                    setState('playing');
-                } else if (synthRef.current.paused) {
-                    synthRef.current.resume();
-                    setState('playing');
-                } else {
-                    play(); // If nothing to resume, start over
-                }
+                 if (audioRef.current && audioRef.current.paused) { audioRef.current.play(); setState('playing'); }
+                else if (synthRef.current.paused) { synthRef.current.resume(); setState('playing'); }
+                else { play(); }
             }
 
             return { state, play, pause, resume, stop };
         };
 
-        const Popover = ({ data, type, onClose, isQuizMode }) => {
+        // Mobile Bottom Sheet Popover
+        const BottomSheet = ({ data, type, onClose, isQuizMode }) => {
             const { state, play, pause, resume, stop } = useAudioPlayer(type === 'vocab' ? `${data.word}. ${data.ex}` : '');
             const [isRevealed, setIsRevealed] = useState(false);
 
-            useEffect(() => {
-                // Reset quiz state when data changes
-                setIsRevealed(false);
-                return () => stop();
-            }, [data.id || data.word]);
-
-            // Quiz Mode Logic
+            useEffect(() => { setIsRevealed(false); return () => stop(); }, [data.id || data.word]);
             const showHidden = isQuizMode && type === 'vocab' && !isRevealed;
 
             return (
-                <div className="absolute z-50 bg-white rounded-lg shadow-xl border border-gray-200 p-4 w-80 animate-fade-in" 
-                     style={{ top: '100%', left: '50%', transform: 'translate(-50%, 10px)' }}
-                     onClick={(e) => e.stopPropagation()}>
+                <div className="fixed inset-0 z-50 flex items-end justify-center pointer-events-none">
+                    {/* Backdrop */}
+                    <div className="absolute inset-0 bg-black/40 animate-fade-in pointer-events-auto" onClick={onClose}></div>
                     
-                    {/* Header */}
-                    <div className="flex justify-between items-start mb-2">
-                        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                            {type === 'vocab' ? 'VOCABULARY' : 'EXAMPLE BANK'}
-                        </span>
-                        <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
-                             &times;
+                    {/* Card */}
+                    <div className="bg-white w-full rounded-t-2xl p-6 pb-12 shadow-[0_-5px_20px_rgba(0,0,0,0.15)] animate-slide-up pointer-events-auto relative max-h-[80vh] overflow-y-auto">
+                        <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6"></div>
+                        
+                        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 p-2">
+                            <Icons.X />
                         </button>
-                    </div>
 
-                    {type === 'footnote' && (
-                        <div className="space-y-2">
-                            {data.map((ex, i) => (
-                                <div key={i} className="p-2 bg-gray-50 rounded text-sm text-gray-700 border-l-2 border-blue-400">
-                                    {ex}
+                        {/* Title Label */}
+                        <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                            {type === 'vocab' ? 'Vocabulary' : 'Formula Examples'}
+                        </div>
+
+                        {type === 'footnote' && (
+                            <div className="space-y-3">
+                                {data.map((ex, i) => (
+                                    <div key={i} className="p-3 bg-blue-50 rounded-lg text-base text-gray-800 border-l-4 border-blue-400">
+                                        {ex}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {type === 'vocab' && showHidden && (
+                            <div className="text-center py-6">
+                                <div className="text-gray-500 mb-2">{data.pos}</div>
+                                <div className="font-bold text-xl mb-6">{data.def}</div>
+                                <button onClick={() => setIsRevealed(true)}
+                                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-bold shadow-lg shadow-blue-200 active:scale-95 transition-transform">
+                                    <Icons.Eye /> 揭曉答案
+                                </button>
+                            </div>
+                        )}
+
+                        {type === 'vocab' && !showHidden && (
+                            <div>
+                                <div className="flex justify-between items-end mb-2">
+                                    <h3 className="text-3xl font-bold text-gray-900 leading-none">{data.word}</h3>
+                                    <span className="font-mono text-gray-500">{data.kk}</span>
                                 </div>
-                            ))}
-                        </div>
-                    )}
+                                
+                                <div className="flex items-center gap-2 mb-6">
+                                    <span className="text-xs font-bold bg-gray-100 px-2 py-1 rounded text-gray-600">{data.pos}</span>
+                                    <span className="text-lg text-gray-800 font-medium">{data.def}</span>
+                                </div>
 
-                    {type === 'vocab' && showHidden && (
-                        <div className="text-center py-4">
-                            <div className="text-sm text-gray-500 mb-1">{data.pos}</div>
-                            <div className="font-bold text-lg mb-4">{data.def}</div>
-                            <button 
-                                onClick={() => setIsRevealed(true)}
-                                className="flex items-center justify-center gap-2 w-full py-2 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 font-bold transition-colors">
-                                <Icons.Eye /> 揭曉答案
-                            </button>
-                        </div>
-                    )}
+                                {/* Player UI */}
+                                <div className="flex items-center gap-3 mb-6 bg-gray-50 p-2 pr-4 rounded-full w-max border border-gray-100">
+                                    <button onClick={state === 'playing' ? pause : (state === 'paused' ? resume : play)} 
+                                        className="w-10 h-10 flex items-center justify-center bg-white shadow rounded-full text-blue-600 active:bg-gray-50">
+                                        {state === 'playing' ? <Icons.Pause /> : <Icons.Play />}
+                                    </button>
+                                    <button onClick={stop} className="p-2 text-gray-400 hover:text-red-500"><Icons.Square /></button>
+                                    <div className="h-4 w-[1px] bg-gray-300 mx-1"></div>
+                                    <span className="text-xs font-medium text-blue-900">
+                                        {state === 'playing' ? 'Playing...' : 'Listen'}
+                                    </span>
+                                </div>
 
-                    {type === 'vocab' && !showHidden && (
-                        <div>
-                            <div className="flex justify-between items-baseline mb-1">
-                                <h3 className="text-2xl font-bold text-gray-900">{data.word}</h3>
-                                <span className="font-mono text-gray-500 text-sm">{data.kk}</span>
+                                <div className="text-base text-gray-600 italic border-l-2 border-gray-300 pl-3 leading-relaxed">
+                                    "{data.ex}"
+                                </div>
                             </div>
-                            <div className="flex items-center gap-2 mb-3">
-                                <span className="text-xs font-bold bg-gray-100 px-1.5 py-0.5 rounded text-gray-600">{data.pos}</span>
-                                <span className="text-gray-800 font-medium">{data.def}</span>
-                            </div>
-
-                            {/* Audio Controls */}
-                            <div className="flex items-center gap-2 mb-3 bg-gray-50 p-1.5 rounded-full w-max">
-                                {state === 'playing' ? (
-                                    <button onClick={pause} className="p-1.5 bg-white shadow rounded-full text-blue-600 hover:bg-gray-100"><Icons.Pause /></button>
-                                ) : (
-                                    <button onClick={state === 'paused' ? resume : play} className="p-1.5 bg-white shadow rounded-full text-blue-600 hover:bg-gray-100"><Icons.Play /></button>
-                                )}
-                                <button onClick={stop} className="p-1.5 text-gray-400 hover:text-red-500"><Icons.Square /></button>
-                                <span className="text-xs text-gray-400 pr-2 font-medium">
-                                    {state === 'playing' ? 'Playing...' : state === 'paused' ? 'Paused' : 'Listen'}
-                                </span>
-                            </div>
-
-                            <div className="text-sm text-gray-600 italic border-l-2 border-gray-300 pl-2">
-                                "{data.ex}"
-                            </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             );
         };
 
         const TextParser = ({ text, onActivate, activeId, isQuizMode }) => {
-            // Tokenize: Splits by [Footnotes], [ChinesePlaceholders], Punctuation, Spaces
             const parts = text.split(/(\[\d+\]|[\u4e00-\u9fa5]+[a-zA-Z0-9\(\)\/]*|[\s\.,;!?()]+)/g).filter(Boolean);
 
             return (
-                <p className="leading-8 text-lg text-gray-800 mb-6">
+                <p className="leading-relaxed text-[17px] text-gray-800 mb-6 font-normal tracking-wide">
                     {parts.map((part, index) => {
-                        // 1. Footnote [1]
                         if (/^\[\d+\]$/.test(part)) {
                             const id = parseInt(part.replace(/[\[\]]/g, ''));
-                            const isActive = activeId === `footnote-${id}`;
                             return (
-                                <span key={index} className="relative inline-block ml-1 align-super">
-                                    <button 
-                                        onClick={(e) => { e.stopPropagation(); onActivate('footnote', id); }}
-                                        className={`text-[10px] font-bold px-1.5 rounded cursor-pointer transition-colors ${isActive ? 'bg-[#EB5757] text-white' : 'bg-[#EB5757]/10 text-[#EB5757] hover:bg-[#EB5757]/20'}`}>
-                                        {id}
-                                    </button>
-                                    {isActive && <Popover data={FOOTNOTE_DB[id]} type="footnote" onClose={() => onActivate(null)} isQuizMode={isQuizMode} />}
-                                </span>
+                                <button key={index} 
+                                    onClick={(e) => { e.stopPropagation(); onActivate('footnote', id); }}
+                                    className="inline-flex items-center justify-center min-w-[18px] h-[18px] ml-1 align-top text-[10px] font-bold bg-[#EB5757]/10 text-[#EB5757] rounded active:bg-[#EB5757] active:text-white transition-colors">
+                                    {id}
+                                </button>
                             );
                         }
-
-                        // 2. Chinese Placeholders (e.g. 描述主題的名詞)
                         if (/[\u4e00-\u9fa5]/.test(part)) {
-                            return <span key={index} className="text-gray-400 font-medium mx-1 border-b border-dashed border-gray-300">{part}</span>;
+                            return <span key={index} className="text-gray-400 mx-1 border-b border-dashed border-gray-300">{part}</span>;
                         }
-
-                        // 3. Vocab Check (Case insensitive match)
                         const lower = part.toLowerCase();
                         if (VOCAB_DB[lower]) {
                             const isActive = activeId === `vocab-${lower}`;
-                            // Quiz Mode Mask
                             if (isQuizMode) {
                                 return (
-                                    <span key={index} className="relative inline-block">
-                                        <span 
-                                            onClick={(e) => { e.stopPropagation(); onActivate('vocab', lower); }}
-                                            className={`cursor-pointer border-b-2 border-[#EB5757] bg-[#EB5757]/5 px-1 mx-0.5 select-none text-transparent hover:bg-[#EB5757]/10 transition-colors`}>
-                                            {part}
-                                        </span>
-                                        {isActive && <Popover data={{...VOCAB_DB[lower], word: part}} type="vocab" onClose={() => onActivate(null)} isQuizMode={isQuizMode} />}
+                                    <span key={index} onClick={(e) => { e.stopPropagation(); onActivate('vocab', lower); }}
+                                        className="border-b-2 border-[#EB5757] bg-[#EB5757]/5 px-1 mx-0.5 text-transparent active:bg-[#EB5757]/20 transition-colors cursor-pointer">
+                                        {part}
                                     </span>
                                 );
                             }
-                            // Normal Mode
                             return (
-                                <span key={index} className="relative inline-block">
-                                    <span 
-                                        onClick={(e) => { e.stopPropagation(); onActivate('vocab', lower); }}
-                                        className={`cursor-pointer px-1 mx-0.5 rounded transition-colors ${isActive ? 'bg-[#D3E5EF] text-blue-900' : 'bg-[#E3E2E0] hover:bg-[#D3E5EF]'}`}>
-                                        {part}
-                                    </span>
-                                    {isActive && <Popover data={{...VOCAB_DB[lower], word: part}} type="vocab" onClose={() => onActivate(null)} isQuizMode={isQuizMode} />}
+                                <span key={index} onClick={(e) => { e.stopPropagation(); onActivate('vocab', lower); }}
+                                    className={`px-1 mx-0.5 rounded transition-colors cursor-pointer ${isActive ? 'bg-blue-200 text-blue-900' : 'bg-[#E3E2E0] active:bg-blue-100'}`}>
+                                    {part}
                                 </span>
                             );
                         }
-
-                        // 4. Normal Text
                         return <span key={index}>{part}</span>;
                     })}
                 </p>
@@ -358,111 +318,96 @@ While the aforementioned observations provide the context, a deeper reflection r
         };
 
         const App = () => {
-            const [activeTab, setActiveTab] = useState('formula'); // 'formula' | 'essays'
-            const [activePopover, setActivePopover] = useState(null); // { type, id }
+            const [activeTab, setActiveTab] = useState('formula');
+            const [activePopover, setActivePopover] = useState(null); 
             const [isQuizMode, setIsQuizMode] = useState(false);
 
-            // Close popover on outside click
-            useEffect(() => {
-                const handleClickOutside = () => setActivePopover(null);
-                document.addEventListener('click', handleClickOutside);
-                return () => document.removeEventListener('click', handleClickOutside);
-            }, []);
-
-            const handleActivate = (type, id) => {
-                const key = `${type}-${id}`;
-                setActivePopover(prev => prev === key ? null : key);
-            };
+            const handleActivate = (type, id) => setActivePopover({ type, id, key: `${type}-${id}` });
+            const closePopover = () => setActivePopover(null);
 
             return (
-                <div className="flex h-screen max-w-5xl mx-auto shadow-2xl bg-white overflow-hidden">
-                    {/* Sidebar */}
-                    <div className="w-64 bg-[#F7F7F5] border-r border-gray-200 flex flex-col flex-shrink-0">
-                        <div className="p-6">
-                            <h1 className="text-xl font-bold flex items-center gap-2 text-gray-800">
-                                <Icons.BookOpen /> Essay Coach
-                            </h1>
-                        </div>
-                        <nav className="flex-1 px-4 space-y-1">
-                            <button 
-                                onClick={() => setActiveTab('formula')}
-                                className={`w-full text-left px-3 py-2 rounded-md font-medium transition-colors ${activeTab === 'formula' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:bg-gray-200'}`}>
-                                萬用公式 (The Formula)
-                            </button>
-                            <button 
-                                onClick={() => setActiveTab('essays')}
-                                className={`w-full text-left px-3 py-2 rounded-md font-medium transition-colors ${activeTab === 'essays' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:bg-gray-200'}`}>
-                                實戰範文 (Essays)
-                            </button>
-                        </nav>
+                <div className="flex flex-col h-full bg-white relative">
+                    
+                    {/* 1. Header (Sticky) */}
+                    <div className="bg-white/90 backdrop-blur border-b border-gray-200 px-4 py-3 flex justify-between items-center z-20 shrink-0 safe-top">
+                        <div className="font-bold text-lg text-gray-800">Essay Coach</div>
                         
                         {/* Quiz Toggle */}
-                        <div className="p-4 border-t border-gray-200">
-                            <div className="flex items-center justify-between cursor-pointer group" onClick={() => setIsQuizMode(!isQuizMode)}>
-                                <span className={`font-medium ${isQuizMode ? 'text-[#EB5757]' : 'text-gray-600'}`}>Quiz Mode</span>
-                                <div className="transition-colors text-gray-400 group-hover:text-gray-600">
-                                    {isQuizMode ? <Icons.ToggleRight /> : <Icons.ToggleLeft />}
-                                </div>
-                            </div>
-                            <div className="text-xs text-gray-400 mt-2">
-                                {isQuizMode ? '生字已遮蔽。點擊以揭曉。' : '點擊生字查看定義。'}
-                            </div>
+                        <div className="flex items-center gap-2" onClick={() => setIsQuizMode(!isQuizMode)}>
+                            <span className={`text-xs font-bold ${isQuizMode ? 'text-[#EB5757]' : 'text-gray-400'}`}>
+                                {isQuizMode ? 'QUIZ ON' : 'READ'}
+                            </span>
+                            {isQuizMode ? <Icons.ToggleRight /> : <Icons.ToggleLeft />}
                         </div>
                     </div>
 
-                    {/* Main Content */}
-                    <div className="flex-1 overflow-y-auto bg-white relative">
-                        {/* Tab Content */}
-                        <div className="max-w-3xl mx-auto px-12 py-12 pb-32">
-                            
-                            {activeTab === 'formula' && (
-                                <div className="animate-fade-in">
-                                    {/* Onboarding Callout */}
-                                    <div className="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-100 flex gap-3">
-                                        <div className="text-blue-500 mt-1"><Icons.Info /></div>
-                                        <div>
-                                            <h3 className="font-bold text-blue-900 text-sm uppercase tracking-wide mb-2">How To Use</h3>
-                                            <ul className="text-sm text-blue-800 space-y-1">
-                                                <li><strong>Step 1:</strong> 閱讀樣板一遍即可。</li>
-                                                <li><strong>Step 2:</strong> 閱讀範文。</li>
-                                                <li><strong>Step 3:</strong> 任選一篇範文 <span className="underline decoration-blue-300">全文背誦</span>。</li>
-                                            </ul>
-                                            <p className="text-xs text-blue-600 mt-2 leading-relaxed">
-                                                樣板就像數學公式一樣難背，範文雖然字數較多，但因為有上下文，反而容易記憶。只要範文背熟，實際應用時一定可以自然地替換掉不合的部分。
-                                            </p>
+                    {/* 2. Main Scrollable Content */}
+                    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 px-5 pt-6 hide-scrollbar bg-white">
+                        {activeTab === 'formula' && (
+                            <div className="animate-fade-in">
+                                {/* Instruction Card */}
+                                <div className="mb-8 bg-blue-50/80 p-4 rounded-xl border border-blue-100">
+                                    <div className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Instructions</div>
+                                    <div className="flex gap-3 mb-2">
+                                        <div className="w-1 h-auto bg-blue-300 rounded-full"></div>
+                                        <div className="space-y-1 text-sm text-blue-900">
+                                            <p><span className="font-bold">Step 1:</span> 閱讀樣板</p>
+                                            <p><span className="font-bold">Step 2:</span> 閱讀範文</p>
+                                            <p><span className="font-bold">Step 3:</span> <span className="underline decoration-blue-300">全文背誦</span>一篇範文</p>
                                         </div>
                                     </div>
-
-                                    <h2 className="text-3xl font-bold mb-6 text-gray-900 border-b pb-4">萬用作文模版</h2>
-                                    <TextParser 
-                                        text={FORMULA_TEXT} 
-                                        onActivate={handleActivate} 
-                                        activeId={activePopover} 
-                                        isQuizMode={isQuizMode} 
-                                    />
+                                    <p className="text-xs text-blue-500/80 leading-relaxed mt-3">
+                                        "範文有上下文，比公式好背。背熟後自然能靈活運用。"
+                                    </p>
                                 </div>
-                            )}
 
-                            {activeTab === 'essays' && (
-                                <div className="space-y-12 animate-fade-in">
-                                    {ESSAYS_DATA.map(essay => (
-                                        <div key={essay.id}>
-                                            <h2 className="text-2xl font-bold mb-4 text-gray-800 sticky top-0 bg-white/95 py-2 backdrop-blur z-10">
-                                                {essay.title}
-                                            </h2>
-                                            <TextParser 
-                                                text={essay.content} 
-                                                onActivate={handleActivate} 
-                                                activeId={activePopover} 
-                                                isQuizMode={isQuizMode} 
-                                            />
-                                            <hr className="my-8 border-gray-100"/>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
+                                <h2 className="text-2xl font-bold mb-6 text-gray-900">萬用作文模版</h2>
+                                <TextParser text={FORMULA_TEXT} onActivate={handleActivate} activeId={activePopover?.key} isQuizMode={isQuizMode} />
+                            </div>
+                        )}
+
+                        {activeTab === 'essays' && (
+                            <div className="animate-fade-in space-y-12">
+                                {ESSAYS_DATA.map(essay => (
+                                    <div key={essay.id}>
+                                        <h2 className="text-xl font-bold mb-4 text-gray-900 sticky top-0 bg-white py-2 z-10 border-b border-transparent shadow-[0_10px_20px_-10px_rgba(255,255,255,1)]">
+                                            {essay.title}
+                                        </h2>
+                                        <TextParser text={essay.content} onActivate={handleActivate} activeId={activePopover?.key} isQuizMode={isQuizMode} />
+                                        <div className="h-px bg-gray-100 my-8"></div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
+
+                    {/* 3. Bottom Navigation */}
+                    <nav className="shrink-0 bg-white border-t border-gray-200 safe-bottom pb-safe z-30">
+                        <div className="flex justify-around items-center h-16">
+                            <button onClick={() => setActiveTab('formula')} 
+                                className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${activeTab === 'formula' ? 'text-blue-600' : 'text-gray-400'}`}>
+                                <Icons.Book />
+                                <span className="text-[10px] font-medium">Formula</span>
+                            </button>
+                            <button onClick={() => setActiveTab('essays')} 
+                                className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${activeTab === 'essays' ? 'text-blue-600' : 'text-gray-400'}`}>
+                                <Icons.FileText />
+                                <span className="text-[10px] font-medium">Essays</span>
+                            </button>
+                        </div>
+                    </nav>
+
+                    {/* 4. Popover (Bottom Sheet) */}
+                    {activePopover && (
+                        <BottomSheet 
+                            data={activePopover.type === 'vocab' 
+                                ? { ...VOCAB_DB[activePopover.id], word: activePopover.id } 
+                                : FOOTNOTE_DB[activePopover.id]} 
+                            type={activePopover.type} 
+                            onClose={closePopover} 
+                            isQuizMode={isQuizMode} 
+                        />
+                    )}
                 </div>
             );
         };
