@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Essay Coach Mobile</title>
+    <title>萬用作文模板</title>
     
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -24,16 +24,9 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         /* 動畫效果 */
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         .animate-slide-up { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .animate-fade-in { animation: fadeIn 0.2s ease-out forwards; }
     </style>
 </head>
@@ -56,7 +49,7 @@
             ToggleRight: () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EB5757" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"/><circle cx="16" cy="12" r="3"/></svg>
         };
 
-        // --- 資料庫 (保持不變) ---
+        // --- 資料庫 ---
         const VOCAB_DB = {
             "prevalence": { kk: "[ˋprɛvələns]", pos: "n.", def: "流行；普及", ex: "The prevalence of smartphones is undeniable." },
             "indispensable": { kk: "[͵ɪndɪsˋpɛnsəb!]", pos: "adj.", def: "不可或缺的", ex: "Water is indispensable to life." },
@@ -118,31 +111,37 @@
             12: ["prioritize our time", "cherish our identity"]
         };
 
-        const FORMULA_TEXT = `[P1]
-In the context of modern existence, few subjects evoke as much contemplation as 描述主題的名詞[1]. Whether viewed through the lens of social trends or personal experience, it is evident that 明確細節的句子[2]. Specifically, regarding 明確的細節名詞[3], one cannot help but notice 描述細節的名詞[4]. This phenomenon is not merely superficial; it serves as a mirror reflecting 深刻的意義(名詞)[5].
-
-[P2]
-While the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding 核心問題(名詞)[6]. If I were to evaluate 問題/優缺點/可能性等(名詞)[7], I would contend that 自己的選擇或立場(句子)[8]. Consequently, to 目的(原形動詞)[9], my approach would be to 打算做的行動(原形動詞)[10]. Ultimately, 主題(問題、現象)名詞[11] acts as a catalyst, compelling us to rethink how we 結論(動詞)[12].`;
+        // 修改為陣列結構，解決 P2 換行問題
+        const FORMULA_PARAGRAPHS = [
+            `[P1]
+In the context of modern existence, few subjects evoke as much contemplation as 描述主題的名詞[1]. Whether viewed through the lens of social trends or personal experience, it is evident that 明確細節的句子[2]. Specifically, regarding 明確的細節名詞[3], one cannot help but notice 描述細節的名詞[4]. This phenomenon is not merely superficial; it serves as a mirror reflecting 深刻的意義(名詞)[5].`,
+            
+            `[P2]
+While the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding 核心問題(名詞)[6]. If I were to evaluate 問題/優缺點/可能性等(名詞)[7], I would contend that 自己的選擇或立場(句子)[8]. Consequently, to 目的(原形動詞)[9], my approach would be to 打算做的行動(原形動詞)[10]. Ultimately, 主題(問題、現象)名詞[11] acts as a catalyst, compelling us to rethink how we 結論(動詞)[12].`
+        ];
 
         const ESSAYS_DATA = [
             {
                 id: 1,
-                title: "Hand-shaken Drinks",
+                title: "範文 1: Hand-shaken Drinks",
+                prompt: "提示：現代臺灣人或多或少都會買手搖飲來喝,普遍認為手搖飲很方便且能客製化,故成為許多人日常生活的一部分。請以此為題,寫一篇英文作文。第一段請說明手搖飲在臺灣流行的原因,第二段請敘述你自己或親友對手搖飲的看法。",
                 content: "In the context of modern existence, few subjects evoke as much contemplation as the prevalence of hand-shaken drinks in Taiwan. Whether viewed through the lens of Taiwanese food culture or daily habit, it is evident that carrying a cup of bubble tea has become a symbol of local life. Specifically, regarding the reasons behind their immense popularity, one cannot help but notice the unparalleled convenience and the high degree of customization available, allowing consumers to tailor sweetness levels and toppings to their exact preferences. This phenomenon is not merely superficial; it serves as a mirror reflecting the Taiwanese pursuit of 'tiny happiness' and the desire for personalized comfort amidst a fast-paced lifestyle.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding the balance between psychological satisfaction and physical well-being. If I were to evaluate my family's perspective on these beverages, I would contend that while we acknowledge them as a delightful treat that relieves stress, we remain wary of the potential health risks associated with excessive sugar intake. Consequently, to enjoy these drinks without compromising our health, my approach would be to treat them as an occasional indulgence rather than a daily necessity, and to opt for sugar-free tea or fresh fruit alternatives. Ultimately, the hand-shaken drink culture acts as a catalyst, compelling us to rethink how we make conscious dietary choices in an environment filled with temptation."
             },
             {
                 id: 2,
-                title: "Pride of Taiwan",
+                title: "範文 2: Pride of Taiwan",
+                prompt: "提示：身為臺灣的一份子，臺灣最讓你感到驕傲的是什麼？請以此為題，寫一篇英文作文，談臺灣最讓你引以為榮的二個面向或事物（例如：人、事、物、文化、制度等）。第一段描述這二個面向或事物，並說明它們為何讓你引以為榮；第二段則說明你認為可以用什麼方式來介紹或行銷這些臺灣特色，讓世人更了解臺灣。",
                 content: "In the context of modern existence, few subjects evoke as much contemplation as the unique charm of my homeland, Taiwan. Whether viewed through the lens of a local resident or an international traveler, it is evident that this island possesses a distinct allure that captivates the soul. Specifically, regarding what makes me proudest, one cannot help but notice the warmth of human kindness and the convenient, sleepless vibrancy of our night markets. This phenomenon is not merely superficial; it serves as a mirror reflecting Taiwan's spirit of inclusivity and its dynamic, unflagging energy.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we can project this soft power to the global stage. If I were to evaluate the best strategy to introduce these features, I would contend that experiential storytelling is far more powerful than mere slogans. Consequently, to market Taiwan to the world, my approach would be to launch social media campaigns that invite influencers to 'live a day as a local,' immersing them in the authentic warmth and culinary delights we offer. Ultimately, this cultural promotion acts as a catalyst, compelling us to rethink how we define our identity and share our treasures with the global community."
             },
             {
                 id: 3,
-                title: "Doomsday Prediction",
+                title: "範文 3: Doomsday Prediction",
+                prompt: "提示：每隔一陣子總會出現末日預言(doomsday prediction),如日本有位漫畫家預言 2025 年 7 月 5 日會發生強震重創日本和鄰近國家,此預言引發恐慌,甚至影響各國遊客在該月到日本旅遊的意願。你相信這種末日預言嗎?請寫一篇英文作文,文分兩段,第一段陳述你對末日預言的看法(是迷信還是值得參考), 第二段說明若世界末日真的到來,你會如何度過。",
                 content: "In the context of modern existence, few subjects evoke as much contemplation as the recurring emergence of doomsday predictions. Whether viewed through the lens of superstition or scientific caution, it is evident that such predictions often trigger a mix of panic and suspicion among the public. Specifically, regarding the prediction of a massive earthquake in July 2025, one cannot help but notice how easily fear propagates, affecting even tourism and daily decisions. This phenomenon is not merely superficial; it serves as a mirror reflecting humanity's inherent vulnerability and our desperate need for certainty in an unpredictable world.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we perceive the value of our limited time. If I were to evaluate the credibility of these prophecies, I would contend that while they are probably not scientifically accurate, they are a valuable philosophical reminder of our mortality. Consequently, if the end of the world were truly imminent, my approach would not be to give in to despair, but to spend my final moments embracing my loved ones and expressing gratitude for the life I have lived. Ultimately, this doomsday scenario acts as a catalyst, compelling us to rethink how we cherish every present moment rather than fearing a hypothetical future."
             }
         ];
 
-        // --- 核心元件 (Components) ---
+        // --- 核心元件 ---
 
         const useAudioPlayer = (text) => {
             const [state, setState] = useState('idle'); 
@@ -192,7 +191,6 @@ While the aforementioned observations provide the context, a deeper reflection r
             return { state, play, pause, resume, stop };
         };
 
-        // Mobile Bottom Sheet Popover
         const BottomSheet = ({ data, type, onClose, isQuizMode }) => {
             const { state, play, pause, resume, stop } = useAudioPlayer(type === 'vocab' ? `${data.word}. ${data.ex}` : '');
             const [isRevealed, setIsRevealed] = useState(false);
@@ -202,18 +200,11 @@ While the aforementioned observations provide the context, a deeper reflection r
 
             return (
                 <div className="fixed inset-0 z-50 flex items-end justify-center pointer-events-none">
-                    {/* Backdrop */}
                     <div className="absolute inset-0 bg-black/40 animate-fade-in pointer-events-auto" onClick={onClose}></div>
-                    
-                    {/* Card */}
                     <div className="bg-white w-full rounded-t-2xl p-6 pb-12 shadow-[0_-5px_20px_rgba(0,0,0,0.15)] animate-slide-up pointer-events-auto relative max-h-[80vh] overflow-y-auto">
                         <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6"></div>
-                        
-                        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 p-2">
-                            <Icons.X />
-                        </button>
+                        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 p-2"><Icons.X /></button>
 
-                        {/* Title Label */}
                         <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
                             {type === 'vocab' ? 'Vocabulary' : 'Formula Examples'}
                         </div>
@@ -245,13 +236,10 @@ While the aforementioned observations provide the context, a deeper reflection r
                                     <h3 className="text-3xl font-bold text-gray-900 leading-none">{data.word}</h3>
                                     <span className="font-mono text-gray-500">{data.kk}</span>
                                 </div>
-                                
                                 <div className="flex items-center gap-2 mb-6">
                                     <span className="text-xs font-bold bg-gray-100 px-2 py-1 rounded text-gray-600">{data.pos}</span>
                                     <span className="text-lg text-gray-800 font-medium">{data.def}</span>
                                 </div>
-
-                                {/* Player UI */}
                                 <div className="flex items-center gap-3 mb-6 bg-gray-50 p-2 pr-4 rounded-full w-max border border-gray-100">
                                     <button onClick={state === 'playing' ? pause : (state === 'paused' ? resume : play)} 
                                         className="w-10 h-10 flex items-center justify-center bg-white shadow rounded-full text-blue-600 active:bg-gray-50">
@@ -263,7 +251,6 @@ While the aforementioned observations provide the context, a deeper reflection r
                                         {state === 'playing' ? 'Playing...' : 'Listen'}
                                     </span>
                                 </div>
-
                                 <div className="text-base text-gray-600 italic border-l-2 border-gray-300 pl-3 leading-relaxed">
                                     "{data.ex}"
                                 </div>
@@ -275,11 +262,13 @@ While the aforementioned observations provide the context, a deeper reflection r
         };
 
         const TextParser = ({ text, onActivate, activeId, isQuizMode }) => {
+            // Updated regex to preserve structure
             const parts = text.split(/(\[\d+\]|[\u4e00-\u9fa5]+[a-zA-Z0-9\(\)\/]*|[\s\.,;!?()]+)/g).filter(Boolean);
 
             return (
                 <p className="leading-relaxed text-[17px] text-gray-800 mb-6 font-normal tracking-wide">
                     {parts.map((part, index) => {
+                        // Footnote
                         if (/^\[\d+\]$/.test(part)) {
                             const id = parseInt(part.replace(/[\[\]]/g, ''));
                             return (
@@ -290,9 +279,11 @@ While the aforementioned observations provide the context, a deeper reflection r
                                 </button>
                             );
                         }
+                        // Chinese Placeholder
                         if (/[\u4e00-\u9fa5]/.test(part)) {
                             return <span key={index} className="text-gray-400 mx-1 border-b border-dashed border-gray-300">{part}</span>;
                         }
+                        // Vocab Check
                         const lower = part.toLowerCase();
                         if (VOCAB_DB[lower]) {
                             const isActive = activeId === `vocab-${lower}`;
@@ -328,41 +319,47 @@ While the aforementioned observations provide the context, a deeper reflection r
             return (
                 <div className="flex flex-col h-full bg-white relative">
                     
-                    {/* 1. Header (Sticky) */}
-                    <div className="bg-white/90 backdrop-blur border-b border-gray-200 px-4 py-3 flex justify-between items-center z-20 shrink-0 safe-top">
-                        <div className="font-bold text-lg text-gray-800">Essay Coach</div>
+                    {/* Header */}
+                    <div className="bg-white/90 backdrop-blur border-b border-gray-200 px-4 py-3 flex justify-between items-center z-20 shrink-0 safe-top gap-3">
+                        <div className="font-bold text-base text-gray-800 truncate flex-1">
+                            萬用作文模板：論述與個人意見版
+                        </div>
                         
-                        {/* Quiz Toggle */}
-                        <div className="flex items-center gap-2" onClick={() => setIsQuizMode(!isQuizMode)}>
-                            <span className={`text-xs font-bold ${isQuizMode ? 'text-[#EB5757]' : 'text-gray-400'}`}>
-                                {isQuizMode ? 'QUIZ ON' : 'READ'}
+                        {/* Toggle Button: Study / Quiz */}
+                        <div className="flex items-center gap-2 bg-gray-100 rounded-full pl-3 pr-2 py-1 cursor-pointer shrink-0" onClick={() => setIsQuizMode(!isQuizMode)}>
+                            <span className={`text-[10px] font-bold tracking-wider ${!isQuizMode ? 'text-blue-600' : 'text-gray-400'}`}>
+                                STUDY
                             </span>
-                            {isQuizMode ? <Icons.ToggleRight /> : <Icons.ToggleLeft />}
+                            <div className="transition-colors text-gray-400">
+                                {isQuizMode ? <Icons.ToggleRight /> : <Icons.ToggleLeft />}
+                            </div>
+                            <span className={`text-[10px] font-bold tracking-wider ${isQuizMode ? 'text-[#EB5757]' : 'text-gray-400'}`}>
+                                QUIZ
+                            </span>
                         </div>
                     </div>
 
-                    {/* 2. Main Scrollable Content */}
+                    {/* Content */}
                     <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 px-5 pt-6 hide-scrollbar bg-white">
                         {activeTab === 'formula' && (
                             <div className="animate-fade-in">
-                                {/* Instruction Card */}
                                 <div className="mb-8 bg-blue-50/80 p-4 rounded-xl border border-blue-100">
                                     <div className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Instructions</div>
-                                    <div className="flex gap-3 mb-2">
-                                        <div className="w-1 h-auto bg-blue-300 rounded-full"></div>
-                                        <div className="space-y-1 text-sm text-blue-900">
-                                            <p><span className="font-bold">Step 1:</span> 閱讀樣板</p>
-                                            <p><span className="font-bold">Step 2:</span> 閱讀範文</p>
-                                            <p><span className="font-bold">Step 3:</span> <span className="underline decoration-blue-300">全文背誦</span>一篇範文</p>
-                                        </div>
+                                    <div className="space-y-1 text-sm text-blue-900">
+                                        <p><span className="font-bold">Step 1:</span> 閱讀樣板</p>
+                                        <p><span className="font-bold">Step 2:</span> 閱讀範文</p>
+                                        <p><span className="font-bold">Step 3:</span> <span className="underline decoration-blue-300">全文背誦</span>一篇範文 ⭐範文有上下文，比公式好背，背熟後自然能靈活運用。</p>
                                     </div>
-                                    <p className="text-xs text-blue-500/80 leading-relaxed mt-3">
-                                        "範文有上下文，比公式好背。背熟後自然能靈活運用。"
-                                    </p>
                                 </div>
-
+		
                                 <h2 className="text-2xl font-bold mb-6 text-gray-900">萬用作文模版</h2>
-                                <TextParser text={FORMULA_TEXT} onActivate={handleActivate} activeId={activePopover?.key} isQuizMode={isQuizMode} />
+                                {/* Render Paragraphs */}
+                                {FORMULA_PARAGRAPHS.map((para, i) => (
+                                    <div key={i}>
+                                        <TextParser text={para} onActivate={handleActivate} activeId={activePopover?.key} isQuizMode={isQuizMode} />
+                                        {i < FORMULA_PARAGRAPHS.length - 1 && <div className="h-6"></div>} {/* Spacer for Paragraphs */}
+                                    </div>
+                                ))}
                             </div>
                         )}
 
@@ -370,9 +367,13 @@ While the aforementioned observations provide the context, a deeper reflection r
                             <div className="animate-fade-in space-y-12">
                                 {ESSAYS_DATA.map(essay => (
                                     <div key={essay.id}>
-                                        <h2 className="text-xl font-bold mb-4 text-gray-900 sticky top-0 bg-white py-2 z-10 border-b border-transparent shadow-[0_10px_20px_-10px_rgba(255,255,255,1)]">
+                                        <h2 className="text-xl font-bold mb-2 text-gray-900 leading-tight">
                                             {essay.title}
                                         </h2>
+                                        {/* Prompt Box */}
+                                        <div className="bg-gray-100 p-3 rounded-lg mb-4 text-sm text-gray-600 leading-relaxed border-l-4 border-gray-300">
+                                            {essay.prompt}
+                                        </div>
                                         <TextParser text={essay.content} onActivate={handleActivate} activeId={activePopover?.key} isQuizMode={isQuizMode} />
                                         <div className="h-px bg-gray-100 my-8"></div>
                                     </div>
@@ -381,7 +382,7 @@ While the aforementioned observations provide the context, a deeper reflection r
                         )}
                     </div>
 
-                    {/* 3. Bottom Navigation */}
+                    {/* Nav */}
                     <nav className="shrink-0 bg-white border-t border-gray-200 safe-bottom pb-safe z-30">
                         <div className="flex justify-around items-center h-16">
                             <button onClick={() => setActiveTab('formula')} 
@@ -397,7 +398,7 @@ While the aforementioned observations provide the context, a deeper reflection r
                         </div>
                     </nav>
 
-                    {/* 4. Popover (Bottom Sheet) */}
+                    {/* Popover */}
                     {activePopover && (
                         <BottomSheet 
                             data={activePopover.type === 'vocab' 
