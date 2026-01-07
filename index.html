@@ -46,7 +46,10 @@
             Eye: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
             X: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
             ToggleLeft: () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"/><circle cx="8" cy="12" r="3"/></svg>,
-            ToggleRight: () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EB5757" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"/><circle cx="16" cy="12" r="3"/></svg>
+            ToggleRight: () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EB5757" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="5" width="22" height="14" rx="7" ry="7"/><circle cx="16" cy="12" r="3"/></svg>,
+            Translate: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 8l6 6"/><path d="M4 14h6"/><path d="M2 5h12"/><path d="M7 2v3"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>,
+            ChevronDown: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>,
+            ChevronUp: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
         };
 
         // --- 資料庫 ---
@@ -111,7 +114,6 @@
             12: ["prioritize our time", "cherish our identity"]
         };
 
-        // 修改為陣列結構，解決 P2 換行問題
         const FORMULA_PARAGRAPHS = [
             `[P1]
 In the context of modern existence, few subjects evoke as much contemplation as 描述主題的名詞[1]. Whether viewed through the lens of social trends or personal experience, it is evident that 明確細節的句子[2]. Specifically, regarding 明確的細節名詞[3], one cannot help but notice 描述細節的名詞[4]. This phenomenon is not merely superficial; it serves as a mirror reflecting 深刻的意義(名詞)[5].`,
@@ -125,19 +127,22 @@ While the aforementioned observations provide the context, a deeper reflection r
                 id: 1,
                 title: "範文 1: Hand-shaken Drinks",
                 prompt: "提示：現代臺灣人或多或少都會買手搖飲來喝,普遍認為手搖飲很方便且能客製化,故成為許多人日常生活的一部分。請以此為題,寫一篇英文作文。第一段請說明手搖飲在臺灣流行的原因,第二段請敘述你自己或親友對手搖飲的看法。",
-                content: "In the context of modern existence, few subjects evoke as much contemplation as the prevalence of hand-shaken drinks in Taiwan. Whether viewed through the lens of Taiwanese food culture or daily habit, it is evident that carrying a cup of bubble tea has become a symbol of local life. Specifically, regarding the reasons behind their immense popularity, one cannot help but notice the unparalleled convenience and the high degree of customization available, allowing consumers to tailor sweetness levels and toppings to their exact preferences. This phenomenon is not merely superficial; it serves as a mirror reflecting the Taiwanese pursuit of 'tiny happiness' and the desire for personalized comfort amidst a fast-paced lifestyle.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding the balance between psychological satisfaction and physical well-being. If I were to evaluate my family's perspective on these beverages, I would contend that while we acknowledge them as a delightful treat that relieves stress, we remain wary of the potential health risks associated with excessive sugar intake. Consequently, to enjoy these drinks without compromising our health, my approach would be to treat them as an occasional indulgence rather than a daily necessity, and to opt for sugar-free tea or fresh fruit alternatives. Ultimately, the hand-shaken drink culture acts as a catalyst, compelling us to rethink how we make conscious dietary choices in an environment filled with temptation."
+                content: "In the context of modern existence, few subjects evoke as much contemplation as the prevalence of hand-shaken drinks in Taiwan. Whether viewed through the lens of Taiwanese food culture or daily habit, it is evident that carrying a cup of bubble tea has become a symbol of local life. Specifically, regarding the reasons behind their immense popularity, one cannot help but notice the unparalleled convenience and the high degree of customization available, allowing consumers to tailor sweetness levels and toppings to their exact preferences. This phenomenon is not merely superficial; it serves as a mirror reflecting the Taiwanese pursuit of 'tiny happiness' and the desire for personalized comfort amidst a fast-paced lifestyle.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding the balance between psychological satisfaction and physical well-being. If I were to evaluate my family's perspective on these beverages, I would contend that while we acknowledge them as a delightful treat that relieves stress, we remain wary of the potential health risks associated with excessive sugar intake. Consequently, to enjoy these drinks without compromising our health, my approach would be to treat them as an occasional indulgence rather than a daily necessity, and to opt for sugar-free tea or fresh fruit alternatives. Ultimately, the hand-shaken drink culture acts as a catalyst, compelling us to rethink how we make conscious dietary choices in an environment filled with temptation.",
+                translation: "在現代生存的背景下，很少有主題能像台灣手搖飲料的普及那樣引起如此多的沉思。無論是透過台灣飲食文化還是日常習慣的視角來看，很明顯地，拿著一杯珍珠奶茶已經成為在地生活的象徵。具體來說，關於其極度受歡迎的原因，人們不得不注意到其無與倫比的便利性和高度的客製化，讓消費者能夠根據自己的確切喜好調整甜度和配料。這種現象不僅僅是表面的；它就像一面鏡子，反映了台灣人對「小確幸」的追求，以及在快節奏的生活方式中對個人化慰藉的渴望。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於心理滿足與身體健康之間平衡的重大影響。如果要評估我們家對這些飲料的看法，我會主張雖然我們承認它們是緩解壓力的愉快享受，但我們仍然對與攝入過多糖分相關的潛在健康風險保持警惕。因此，為了在不損害健康的情況下享受這些飲料，我的做法是將它們視為偶爾的放縱，而不是日常必需品，並選擇無糖茶或新鮮水果替代品。最終，手搖飲料文化充當了催化劑，迫使我們重新思考如何在充滿誘惑的環境中做出有意識的飲食選擇。"
             },
             {
                 id: 2,
                 title: "範文 2: Pride of Taiwan",
                 prompt: "提示：身為臺灣的一份子，臺灣最讓你感到驕傲的是什麼？請以此為題，寫一篇英文作文，談臺灣最讓你引以為榮的二個面向或事物（例如：人、事、物、文化、制度等）。第一段描述這二個面向或事物，並說明它們為何讓你引以為榮；第二段則說明你認為可以用什麼方式來介紹或行銷這些臺灣特色，讓世人更了解臺灣。",
-                content: "In the context of modern existence, few subjects evoke as much contemplation as the unique charm of my homeland, Taiwan. Whether viewed through the lens of a local resident or an international traveler, it is evident that this island possesses a distinct allure that captivates the soul. Specifically, regarding what makes me proudest, one cannot help but notice the warmth of human kindness and the convenient, sleepless vibrancy of our night markets. This phenomenon is not merely superficial; it serves as a mirror reflecting Taiwan's spirit of inclusivity and its dynamic, unflagging energy.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we can project this soft power to the global stage. If I were to evaluate the best strategy to introduce these features, I would contend that experiential storytelling is far more powerful than mere slogans. Consequently, to market Taiwan to the world, my approach would be to launch social media campaigns that invite influencers to 'live a day as a local,' immersing them in the authentic warmth and culinary delights we offer. Ultimately, this cultural promotion acts as a catalyst, compelling us to rethink how we define our identity and share our treasures with the global community."
+                content: "In the context of modern existence, few subjects evoke as much contemplation as the unique charm of my homeland, Taiwan. Whether viewed through the lens of a local resident or an international traveler, it is evident that this island possesses a distinct allure that captivates the soul. Specifically, regarding what makes me proudest, one cannot help but notice the warmth of human kindness and the convenient, sleepless vibrancy of our night markets. This phenomenon is not merely superficial; it serves as a mirror reflecting Taiwan's spirit of inclusivity and its dynamic, unflagging energy.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we can project this soft power to the global stage. If I were to evaluate the best strategy to introduce these features, I would contend that experiential storytelling is far more powerful than mere slogans. Consequently, to market Taiwan to the world, my approach would be to launch social media campaigns that invite influencers to 'live a day as a local,' immersing them in the authentic warmth and culinary delights we offer. Ultimately, this cultural promotion acts as a catalyst, compelling us to rethink how we define our identity and share our treasures with the global community.",
+                translation: "在現代生存的背景下，很少有主題能像我家鄉——台灣——的獨特魅力那樣引起如此多的沉思。無論是透過當地居民還是國際旅客的視角來看，很明顯地，這座島嶼擁有獨特的吸引力，能迷住靈魂。具體來說，關於讓我最感驕傲的事物，人們不得不注意到濃厚的人情味以及便利、不夜城的夜市活力。這種現象不僅僅是表面的；它就像一面鏡子，反映了台灣的包容精神及其充滿活力、不懈的能量。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於我們如何將這種軟實力投射到全球舞台的重大影響。如果要評估介紹這些特色的最佳策略，我會主張體驗式的故事講述遠比單純的口號強大得多。因此，為了向世界行銷台灣，我的做法是發起社群媒體活動，邀請網紅「像當地人一樣生活一天」，讓他們沉浸在我們提供的真實溫暖和美食佳餚中。最終，這種文化推廣充當了催化劑，迫使我們重新思考如何定義我們的身份並與全球社群分享我們的珍寶。"
             },
             {
                 id: 3,
                 title: "範文 3: Doomsday Prediction",
                 prompt: "提示：每隔一陣子總會出現末日預言(doomsday prediction),如日本有位漫畫家預言 2025 年 7 月 5 日會發生強震重創日本和鄰近國家,此預言引發恐慌,甚至影響各國遊客在該月到日本旅遊的意願。你相信這種末日預言嗎?請寫一篇英文作文,文分兩段,第一段陳述你對末日預言的看法(是迷信還是值得參考), 第二段說明若世界末日真的到來,你會如何度過。",
-                content: "In the context of modern existence, few subjects evoke as much contemplation as the recurring emergence of doomsday predictions. Whether viewed through the lens of superstition or scientific caution, it is evident that such predictions often trigger a mix of panic and suspicion among the public. Specifically, regarding the prediction of a massive earthquake in July 2025, one cannot help but notice how easily fear propagates, affecting even tourism and daily decisions. This phenomenon is not merely superficial; it serves as a mirror reflecting humanity's inherent vulnerability and our desperate need for certainty in an unpredictable world.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we perceive the value of our limited time. If I were to evaluate the credibility of these prophecies, I would contend that while they are probably not scientifically accurate, they are a valuable philosophical reminder of our mortality. Consequently, if the end of the world were truly imminent, my approach would not be to give in to despair, but to spend my final moments embracing my loved ones and expressing gratitude for the life I have lived. Ultimately, this doomsday scenario acts as a catalyst, compelling us to rethink how we cherish every present moment rather than fearing a hypothetical future."
+                content: "In the context of modern existence, few subjects evoke as much contemplation as the recurring emergence of doomsday predictions. Whether viewed through the lens of superstition or scientific caution, it is evident that such predictions often trigger a mix of panic and suspicion among the public. Specifically, regarding the prediction of a massive earthquake in July 2025, one cannot help but notice how easily fear propagates, affecting even tourism and daily decisions. This phenomenon is not merely superficial; it serves as a mirror reflecting humanity's inherent vulnerability and our desperate need for certainty in an unpredictable world.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we perceive the value of our limited time. If I were to evaluate the credibility of these prophecies, I would contend that while they are probably not scientifically accurate, they are a valuable philosophical reminder of our mortality. Consequently, if the end of the world were truly imminent, my approach would not be to give in to despair, but to spend my final moments embracing my loved ones and expressing gratitude for the life I have lived. Ultimately, this doomsday scenario acts as a catalyst, compelling us to rethink how we cherish every present moment rather than fearing a hypothetical future.",
+                translation: "在現代生存的背景下，很少有主題能像反覆出現的末日預言那樣引起如此多的沉思。無論是透過迷信還是科學謹慎的視角來看，很明顯地，這類預言往往在公眾中引發恐慌與猜疑的混合情緒。具體來說，關於 2025 年 7 月發生大地震的預言，人們不得不注意到恐懼是多麼容易傳播，甚至影響旅遊和日常決策。這種現象不僅僅是表面的；它就像一面鏡子，反映了人類固有的脆弱性以及我們在不可預測的世界中對確定性的迫切需求。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於我們如何看待有限時間價值的重大影響。如果要評估這些預言的可信度，我會主張雖然它們在科學上可能不準確，但它們是關於我們必死性的寶貴哲學提醒。因此，如果世界末日真的迫在眉睫，我的做法不是屈服於絕望，而是花最後的時刻擁抱我的摯愛，並對我所過的生活表達感激。最終，這個末日情境充當了催化劑，迫使我們重新思考如何珍惜當下的每一刻，而不是恐懼假設的未來。"
             }
         ];
 
@@ -262,11 +267,10 @@ While the aforementioned observations provide the context, a deeper reflection r
         };
 
         const TextParser = ({ text, onActivate, activeId, isQuizMode }) => {
-            // Updated regex to preserve structure
             const parts = text.split(/(\[\d+\]|[\u4e00-\u9fa5]+[a-zA-Z0-9\(\)\/]*|[\s\.,;!?()]+)/g).filter(Boolean);
 
             return (
-                <p className="leading-relaxed text-[17px] text-gray-800 mb-6 font-normal tracking-wide">
+                <p className="leading-relaxed text-[17px] text-gray-800 font-normal tracking-wide">
                     {parts.map((part, index) => {
                         // Footnote
                         if (/^\[\d+\]$/.test(part)) {
@@ -308,6 +312,48 @@ While the aforementioned observations provide the context, a deeper reflection r
             );
         };
 
+        // 新增：獨立的 Essay 卡片元件，處理翻譯切換狀態
+        const EssayCard = ({ essay, onActivate, activePopoverKey, isQuizMode }) => {
+            const [showTrans, setShowTrans] = useState(false);
+
+            return (
+                <div>
+                    <h2 className="text-xl font-bold mb-2 text-gray-900 leading-tight">
+                        {essay.title}
+                    </h2>
+                    
+                    <div className="bg-gray-100 p-3 rounded-lg mb-4 text-sm text-gray-600 leading-relaxed border-l-4 border-gray-300">
+                        {essay.prompt}
+                    </div>
+                    
+                    {/* 英文原文區塊 */}
+                    <div className="mb-4">
+                        <TextParser text={essay.content} onActivate={onActivate} activeId={activePopoverKey} isQuizMode={isQuizMode} />
+                    </div>
+
+                    {/* 翻譯切換按鈕 */}
+                    <button 
+                        onClick={() => setShowTrans(!showTrans)}
+                        className="flex items-center gap-1.5 text-xs font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-full transition-colors mb-4">
+                        <Icons.Translate />
+                        {showTrans ? '隱藏中文翻譯' : '查看中文翻譯'}
+                        {showTrans ? <Icons.ChevronUp /> : <Icons.ChevronDown />}
+                    </button>
+
+                    {/* 中文翻譯區塊 (展開效果) */}
+                    {showTrans && (
+                        <div className="bg-[#F3F4F6] p-4 rounded-xl text-[15px] leading-relaxed text-gray-700 animate-fade-in border border-gray-200">
+                            {essay.translation.split('\n\n').map((p, i) => (
+                                <p key={i} className={i > 0 ? 'mt-4' : ''}>{p}</p>
+                            ))}
+                        </div>
+                    )}
+                    
+                    <div className="h-px bg-gray-100 my-8"></div>
+                </div>
+            );
+        };
+
         const App = () => {
             const [activeTab, setActiveTab] = useState('formula');
             const [activePopover, setActivePopover] = useState(null); 
@@ -325,7 +371,6 @@ While the aforementioned observations provide the context, a deeper reflection r
                             萬用作文模板：論述與個人意見版
                         </div>
                         
-                        {/* Toggle Button: Study / Quiz */}
                         <div className="flex items-center gap-2 bg-gray-100 rounded-full pl-3 pr-2 py-1 cursor-pointer shrink-0" onClick={() => setIsQuizMode(!isQuizMode)}>
                             <span className={`text-[10px] font-bold tracking-wider ${!isQuizMode ? 'text-blue-600' : 'text-gray-400'}`}>
                                 STUDY
@@ -346,18 +391,17 @@ While the aforementioned observations provide the context, a deeper reflection r
                                 <div className="mb-8 bg-blue-50/80 p-4 rounded-xl border border-blue-100">
                                     <div className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Instructions</div>
                                     <div className="space-y-1 text-sm text-blue-900">
-                                        <p><span className="font-bold">Step 1:</span> 閱讀樣板</p>
+                                        <p><span className="font-bold">Step 1:</span> 閱讀樣板 (不用背樣板) </p>
                                         <p><span className="font-bold">Step 2:</span> 閱讀範文</p>
                                         <p><span className="font-bold">Step 3:</span> <span className="underline decoration-blue-300">全文背誦</span>一篇範文 ⭐範文有上下文，比公式好背，背熟後自然能靈活運用。</p>
                                     </div>
                                 </div>
-		
+
                                 <h2 className="text-2xl font-bold mb-6 text-gray-900">萬用作文模版</h2>
-                                {/* Render Paragraphs */}
                                 {FORMULA_PARAGRAPHS.map((para, i) => (
                                     <div key={i}>
                                         <TextParser text={para} onActivate={handleActivate} activeId={activePopover?.key} isQuizMode={isQuizMode} />
-                                        {i < FORMULA_PARAGRAPHS.length - 1 && <div className="h-6"></div>} {/* Spacer for Paragraphs */}
+                                        {i < FORMULA_PARAGRAPHS.length - 1 && <div className="h-6"></div>}
                                     </div>
                                 ))}
                             </div>
@@ -366,17 +410,13 @@ While the aforementioned observations provide the context, a deeper reflection r
                         {activeTab === 'essays' && (
                             <div className="animate-fade-in space-y-12">
                                 {ESSAYS_DATA.map(essay => (
-                                    <div key={essay.id}>
-                                        <h2 className="text-xl font-bold mb-2 text-gray-900 leading-tight">
-                                            {essay.title}
-                                        </h2>
-                                        {/* Prompt Box */}
-                                        <div className="bg-gray-100 p-3 rounded-lg mb-4 text-sm text-gray-600 leading-relaxed border-l-4 border-gray-300">
-                                            {essay.prompt}
-                                        </div>
-                                        <TextParser text={essay.content} onActivate={handleActivate} activeId={activePopover?.key} isQuizMode={isQuizMode} />
-                                        <div className="h-px bg-gray-100 my-8"></div>
-                                    </div>
+                                    <EssayCard 
+                                        key={essay.id} 
+                                        essay={essay} 
+                                        onActivate={handleActivate} 
+                                        activePopoverKey={activePopover?.key} 
+                                        isQuizMode={isQuizMode} 
+                                    />
                                 ))}
                             </div>
                         )}
