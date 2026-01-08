@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BDSKB7YSY"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -312,7 +312,6 @@ While the aforementioned observations provide the context, a deeper reflection r
             );
         };
 
-        // 新增：獨立的 Essay 卡片元件，處理翻譯切換狀態
         const EssayCard = ({ essay, onActivate, activePopoverKey, isQuizMode }) => {
             const [showTrans, setShowTrans] = useState(false);
 
@@ -326,12 +325,10 @@ While the aforementioned observations provide the context, a deeper reflection r
                         {essay.prompt}
                     </div>
                     
-                    {/* 英文原文區塊 */}
                     <div className="mb-4">
                         <TextParser text={essay.content} onActivate={onActivate} activeId={activePopoverKey} isQuizMode={isQuizMode} />
                     </div>
 
-                    {/* 翻譯切換按鈕 */}
                     <button 
                         onClick={() => setShowTrans(!showTrans)}
                         className="flex items-center gap-1.5 text-xs font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-full transition-colors mb-4">
@@ -340,7 +337,6 @@ While the aforementioned observations provide the context, a deeper reflection r
                         {showTrans ? <Icons.ChevronUp /> : <Icons.ChevronDown />}
                     </button>
 
-                    {/* 中文翻譯區塊 (展開效果) */}
                     {showTrans && (
                         <div className="bg-[#F3F4F6] p-4 rounded-xl text-[15px] leading-relaxed text-gray-700 animate-fade-in border border-gray-200">
                             {essay.translation.split('\n\n').map((p, i) => (
@@ -390,11 +386,40 @@ While the aforementioned observations provide the context, a deeper reflection r
                             <div className="animate-fade-in">
                                 <div className="mb-8 bg-blue-50/80 p-4 rounded-xl border border-blue-100">
                                     <div className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Instructions</div>
-                                    <div className="space-y-1 text-sm text-blue-900">
-                                        <p><span className="font-bold">Step 1:</span> 閱讀樣板 (不用背樣板) </p>
+                                    <div className="space-y-2 text-sm text-blue-900">
+                                        <p><span className="font-bold">Step 1:</span> 閱讀樣板 (不用背樣板)</p>
                                         <p><span className="font-bold">Step 2:</span> 閱讀範文</p>
-                                        <p><span className="font-bold">Step 3:</span> <span className="underline decoration-blue-300">全文背誦</span>一篇範文 ⭐範文有上下文，比公式好背，背熟後自然能靈活運用。</p>
+                                        <div>
+                                            <span className="font-bold">Step 3:</span> <span className="underline decoration-blue-300">全文背誦</span>一篇範文
+                                            <div className="mt-1 text-xs text-blue-600 font-medium bg-blue-100/50 p-2 rounded">
+                                                ⭐ 範文有上下文，比公式好背，背熟後自然能靈活運用。
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    {/* --- 適用題型區塊 (更新) --- */}
+                                    <div className="mt-4 pt-4 border-t border-blue-200/60">
+                                        <div className="font-bold text-blue-900 mb-2">適用題型：</div>
+                                        <ul className="list-disc pl-4 space-y-1 text-sm text-blue-800 mb-3">
+                                            <li>
+                                                <span className="font-bold text-blue-600">(無圖)</span> 幾乎都適用，尤其是討論某議題或熱門話題之類的題目
+                                            </li>
+                                            <li>
+                                                <span className="font-bold text-blue-600">(有圖)</span> 單張圖片題、雙圖但兩張圖不是互為對比、多圖但與個人意見或議題討論有關(例如112學測表情符號，113學測機器人小幫手等)
+                                            </li>
+                                        </ul>
+                                        
+                                        {/* 獨立連結 */}
+                                        <a href="https://docs.google.com/document/d/1hOnWGYO5OgpI3VuUFc8FasQ20xbNWws5Q5jr6seQQXU/edit?usp=sharing" 
+                                           target="_blank" 
+                                           rel="noreferrer"
+                                           className="flex items-center gap-1 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors group">
+                                            <span>👉</span>
+                                            <span className="border-b border-blue-600 border-dashed group-hover:border-solid">看所有適用題目與範文</span>
+                                        </a>
+                                    </div>
+                                    {/* --- 適用題型區塊結束 --- */}
+
                                 </div>
 
                                 <h2 className="text-2xl font-bold mb-6 text-gray-900">萬用作文模版</h2>
@@ -428,12 +453,12 @@ While the aforementioned observations provide the context, a deeper reflection r
                             <button onClick={() => setActiveTab('formula')} 
                                 className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${activeTab === 'formula' ? 'text-blue-600' : 'text-gray-400'}`}>
                                 <Icons.Book />
-                                <span className="text-[10px] font-medium">Formula</span>
+                                <span className="text-[10px] font-medium">樣板</span>
                             </button>
                             <button onClick={() => setActiveTab('essays')} 
                                 className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${activeTab === 'essays' ? 'text-blue-600' : 'text-gray-400'}`}>
                                 <Icons.FileText />
-                                <span className="text-[10px] font-medium">Essays</span>
+                                <span className="text-[10px] font-medium">範文</span>
                             </button>
                         </div>
                     </nav>
