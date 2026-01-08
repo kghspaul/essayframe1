@@ -15,7 +15,7 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
+      gtag('config', 'G-7BDSKB7YSY');
     </script>
 
     <style>
@@ -163,20 +163,23 @@ While the aforementioned observations provide the context, a deeper reflection r
                 stop();
                 setState('playing');
                 try {
-                    const encoded = encodeURIComponent(text);
+                    // 簡單清理文字，讓朗讀更順暢 (移除 [P1], [1] 等標記)
+                    const cleanText = text.replace(/\[P\d+\]/g, '').replace(/\[\d+\]/g, '');
+                    const encoded = encodeURIComponent(cleanText);
                     const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encoded}`;
                     const audio = new Audio(url);
                     audioRef.current = audio;
                     audio.onended = () => setState('idle');
-                    audio.onerror = () => playFallback();
+                    audio.onerror = () => playFallback(cleanText);
                     await audio.play();
                 } catch (e) {
-                    playFallback();
+                    // Fallback will use the cleaned text
+                    playFallback(text.replace(/\[P\d+\]/g, '').replace(/\[\d+\]/g, ''));
                 }
             };
 
-            const playFallback = () => {
-                const u = new SpeechSynthesisUtterance(text);
+            const playFallback = (cleanText) => {
+                const u = new SpeechSynthesisUtterance(cleanText);
                 u.lang = 'en-US'; u.rate = 0.9;
                 u.onend = () => setState('idle');
                 synthRef.current.speak(u);
@@ -194,6 +197,25 @@ While the aforementioned observations provide the context, a deeper reflection r
             }
 
             return { state, play, pause, resume, stop };
+        };
+
+        const AudioControl = ({ text }) => {
+            const { state, play, pause, resume, stop } = useAudioPlayer(text);
+            
+            return (
+                <div className="flex items-center gap-2 mb-3">
+                    <button onClick={state === 'playing' ? pause : (state === 'paused' ? resume : play)} 
+                        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all ${state === 'playing' ? 'bg-blue-100 text-blue-600 ring-2 ring-blue-200' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
+                        {state === 'playing' ? <Icons.Pause /> : <Icons.Play />}
+                        {state === 'playing' ? '暫停朗讀' : (state === 'paused' ? '繼續朗讀' : '全文朗讀')}
+                    </button>
+                    {(state === 'playing' || state === 'paused') && (
+                         <button onClick={stop} className="p-2 text-gray-400 hover:text-red-500 bg-white border border-gray-200 rounded-full">
+                            <Icons.Square />
+                         </button>
+                    )}
+                </div>
+            )
         };
 
         const BottomSheet = ({ data, type, onClose, isQuizMode }) => {
@@ -324,6 +346,8 @@ While the aforementioned observations provide the context, a deeper reflection r
                     <div className="bg-gray-100 p-3 rounded-lg mb-4 text-sm text-gray-600 leading-relaxed border-l-4 border-gray-300">
                         {essay.prompt}
                     </div>
+
+                    <AudioControl text={essay.content} />
                     
                     <div className="mb-4">
                         <TextParser text={essay.content} onActivate={onActivate} activeId={activePopoverKey} isQuizMode={isQuizMode} />
@@ -434,6 +458,7 @@ While the aforementioned observations provide the context, a deeper reflection r
                                 <h2 className="text-2xl font-bold mb-6 text-gray-900">萬用作文模版</h2>
                                 {FORMULA_PARAGRAPHS.map((para, i) => (
                                     <div key={i}>
+                                        <AudioControl text={para} />
                                         <TextParser text={para} onActivate={handleActivate} activeId={activePopover?.key} isQuizMode={isQuizMode} />
                                         {i < FORMULA_PARAGRAPHS.length - 1 && <div className="h-6"></div>}
                                     </div>
