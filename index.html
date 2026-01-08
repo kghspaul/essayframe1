@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G-7BDSKB7YSY"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -52,51 +52,47 @@
             ChevronUp: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
         };
 
-        // --- 資料庫 ---
+        // --- 資料庫 (已更新為適用新範文的單字) ---
         const VOCAB_DB = {
+            // Template Words (保留模板常用字)
             "prevalence": { kk: "[ˋprɛvələns]", pos: "n.", def: "流行；普及", ex: "The prevalence of smartphones is undeniable." },
-            "indispensable": { kk: "[͵ɪndɪsˋpɛnsəb!]", pos: "adj.", def: "不可或缺的", ex: "Water is indispensable to life." },
             "contemplation": { kk: "[͵kɑntɛmˋpleʃən]", pos: "n.", def: "沉思；凝視", ex: "He sat in quiet contemplation of the view." },
             "evoke": { kk: "[ɪˋvok]", pos: "v.", def: "喚起；引起", ex: "The music evoked memories of her youth." },
             "lens": { kk: "[lɛnz]", pos: "n.", def: "鏡頭；視角", ex: "Try to look at the problem through a different lens." },
             "evident": { kk: "[ˋɛvədənt]", pos: "adj.", def: "明顯的", ex: "It is evident that you are tired." },
             "symbol": { kk: "[ˋsɪmb!]", pos: "n.", def: "象徵", ex: "The dove is a symbol of peace." },
-            "unparalleled": { kk: "[ʌnˋpærə͵lɛld]", pos: "adj.", def: "無比的；空前的", ex: "This athlete has unparalleled skill." },
-            "customization": { kk: "[͵kʌstəmɪˋzeʃən]", pos: "n.", def: "客製化", ex: "The software offers high customization." },
-            "tailor": { kk: "[ˋtelɚ]", pos: "v.", def: "量身訂做；調整", ex: "We can tailor the program to your needs." },
             "superficial": { kk: "[͵supɚˋfɪʃəl]", pos: "adj.", def: "表面的；膚淺的", ex: "His injury was only superficial." },
             "phenomenon": { kk: "[fəˋnɑmə͵nɑn]", pos: "n.", def: "現象", ex: "Snow in July is a rare phenomenon." },
             "implications": { kk: "[͵ɪmplɪˋkeʃənz]", pos: "n.", def: "影響；暗示", ex: "We must consider the long-term implications." },
-            "wary": { kk: "[ˋwɛrɪ]", pos: "adj.", def: "謹慎的；提防的", ex: "Be wary of strangers offering gifts." },
-            "excessive": { kk: "[ɪkˋsɛsɪv]", pos: "adj.", def: "過度的", ex: "Excessive noise can damage hearing." },
-            "indulgence": { kk: "[ɪnˋdʌldʒəns]", pos: "n.", def: "放縱；沈溺", ex: "Chocolate is my only indulgence." },
-            "culinary": { kk: "[ˋkʌlɪ͵nɛrɪ]", pos: "adj.", def: "烹飪的", ex: "She is studying culinary arts." },
-            "vibrancy": { kk: "[ˋvaɪbrənsɪ]", pos: "n.", def: "活力；生氣", ex: "The vibrancy of the city is exciting." },
-            "propagates": { kk: "[ˋprɑpə͵gets]", pos: "v.", def: "傳播；繁殖", ex: "Rumors propagate quickly online." },
-            "vulnerability": { kk: "[͵vʌlnərəˋbɪlətɪ]", pos: "n.", def: "脆弱性", ex: "He admitted his vulnerability." },
-            "imminent": { kk: "[ˋɪmənənt]", pos: "adj.", def: "即將發生的", ex: "A storm is imminent." },
-            "hypothetical": { kk: "[͵haɪpəˋθɛtɪk!]", pos: "adj.", def: "假設的", ex: "This is a hypothetical situation." },
-            "garner": { kk: "[ˋgɑrnɚ]", pos: "v.", def: "獲得；收集", ex: "The movie garnered rave reviews." },
-            "contend": { kk: "[kənˋtɛnd]", pos: "v.", def: "主張；競爭", ex: "I contend that this is the best option." },
-            "imperative": { kk: "[ɪmˋpɛrətɪv]", pos: "adj.", def: "必要的；極重要的", ex: "It is imperative to act now." },
             "catalyst": { kk: "[ˋkætəlɪst]", pos: "n.", def: "催化劑；推手", ex: "The protest was a catalyst for change." },
-            "recur": { kk: "[rɪˋkɝ]", pos: "v.", def: "重現；復發", ex: "The problem tends to recur." },
+            "contend": { kk: "[kənˋtɛnd]", pos: "v.", def: "主張；競爭", ex: "I contend that this is the best option." },
+            "compelling": { kk: "[kəmˋpɛlɪŋ]", pos: "adj.", def: "令人信服的；強制的", ex: "There is compelling evidence." },
+            
+            // New Essay 1 Words (112 Emoji)
+            "hilarious": { kk: "[hɪˋlɛrɪəs]", pos: "adj.", def: "極可笑的", ex: "The movie was absolutely hilarious." },
+            "admiration": { kk: "[͵ædməˋreʃən]", pos: "n.", def: "欽佩；讚賞", ex: "I have great admiration for her courage." },
+            "vividly": { kk: "[ˋvɪvɪdlɪ]", pos: "adv.", def: "生動地；清晰地", ex: "I vividly remember that day." },
+            "interpreted": { kk: "[ɪnˋtɝprɪtɪd]", pos: "v.", def: "被解讀；被解釋", ex: "His silence was interpreted as agreement." },
+            "clarification": { kk: "[͵klærəfəˋkeʃən]", pos: "n.", def: "澄清；說明", ex: "Please ask for clarification if you are unsure." },
+            
+            // New Essay 2 Words (113 Robot)
+            "intense": { kk: "[ɪnˋtɛns]", pos: "adj.", def: "強烈的；劇烈的", ex: "The heat was intense." },
+            "suppression": { kk: "[səˋprɛʃən]", pos: "n.", def: "壓抑；鎮壓", ex: "The suppression of emotions can be harmful." },
+            "burden": { kk: "[ˋbɝdn]", pos: "n.", def: "重擔；負擔", ex: "He carries a heavy burden." },
+            "capabilities": { kk: "[͵kepəˋbɪlətɪz]", pos: "n.", def: "能力；性能", ex: "This robot has advanced capabilities." },
+            "soothing": { kk: "[ˋsuðɪŋ]", pos: "adj.", def: "撫慰的；使人平靜的", ex: "She played some soothing music." },
+            
+            // Essay 3 Words (Doomsday - Keep relevant ones)
+            "recurring": { kk: "[rɪˋkɝɪŋ]", pos: "adj.", def: "反覆出現的", ex: "It is a recurring problem." },
             "emergence": { kk: "[ɪˋmɝdʒəns]", pos: "n.", def: "出現；浮現", ex: "The emergence of AI changed everything." },
             "superstition": { kk: "[͵supɚˋstɪʃən]", pos: "n.", def: "迷信", ex: "It is a superstition to avoid black cats." },
-            "suspicion": { kk: "[səˋspɪʃən]", pos: "n.", def: "懷疑", ex: "I have a suspicion that he is lying." },
+            "propagate": { kk: "[ˋprɑpə͵get]", pos: "v.", def: "傳播；繁殖", ex: "Rumors propagate quickly online." },
+            "vulnerability": { kk: "[͵vʌlnərəˋbɪlətɪ]", pos: "n.", def: "脆弱性", ex: "He admitted his vulnerability." },
             "desperate": { kk: "[ˋdɛspərɪt]", pos: "adj.", def: "絕望的；極度渴望的", ex: "They made a desperate attempt to escape." },
             "mortality": { kk: "[mɔrˋtælətɪ]", pos: "n.", def: "必死性；死亡率", ex: "Humans are aware of their mortality." },
             "cherish": { kk: "[ˋtʃɛrɪʃ]", pos: "v.", def: "珍惜", ex: "I cherish our time together." },
-            "authentic": { kk: "[ɔˋθɛntɪk]", pos: "adj.", def: "道地的；真實的", ex: "This is authentic Italian food." },
-            "convinced": { kk: "[kənˋvɪnst]", pos: "adj.", def: "確信的", ex: "I am convinced of his innocence." },
-            "inevitably": { kk: "[ɪnˋɛvətəblɪ]", pos: "adv.", def: "不可避免地", ex: "Inevitably, it started to rain." },
-            "threat": { kk: "[θrɛt]", pos: "n.", def: "威脅", ex: "Pollution poses a threat to nature." },
-            "perspective": { kk: "[pɚˋspɛktɪv]", pos: "n.", def: "觀點", ex: "From my perspective, it looks fine." },
-            "allure": { kk: "[əˋljʊr]", pos: "n.", def: "魅力；誘惑", ex: "The allure of the city is strong." },
-            "inclusivity": { kk: "[͵ɪnkluˋsɪvətɪ]", pos: "n.", def: "包容性", ex: "We promote inclusivity in the workplace." },
-            "dynamic": { kk: "[daɪˋnæmɪk]", pos: "adj.", def: "動態的；充滿活力的", ex: "The market is very dynamic." },
-            "unflagging": { kk: "[ʌnˋflægɪŋ]", pos: "adj.", def: "不懈的", ex: "Her unflagging support helped me." },
-            "experiential": { kk: "[ɪk͵spɪrɪˋɛnʃəl]", pos: "adj.", def: "經驗的；體驗式的", ex: "The museum offers experiential learning." }
+            "imminent": { kk: "[ˋɪmənənt]", pos: "adj.", def: "即將發生的", ex: "A storm is imminent." },
+            "hypothetical": { kk: "[͵haɪpəˋθɛtɪk!]", pos: "adj.", def: "假設的", ex: "This is a hypothetical situation." }
         };
 
         const FOOTNOTE_DB = {
@@ -125,17 +121,19 @@ While the aforementioned observations provide the context, a deeper reflection r
         const ESSAYS_DATA = [
             {
                 id: 1,
-                title: "範文 1: Hand-shaken Drinks",
-                prompt: "提示：現代臺灣人或多或少都會買手搖飲來喝,普遍認為手搖飲很方便且能客製化,故成為許多人日常生活的一部分。請以此為題,寫一篇英文作文。第一段請說明手搖飲在臺灣流行的原因,第二段請敘述你自己或親友對手搖飲的看法。",
-                content: "In the context of modern existence, few subjects evoke as much contemplation as the prevalence of hand-shaken drinks in Taiwan. Whether viewed through the lens of Taiwanese food culture or daily habit, it is evident that carrying a cup of bubble tea has become a symbol of local life. Specifically, regarding the reasons behind their immense popularity, one cannot help but notice the unparalleled convenience and the high degree of customization available, allowing consumers to tailor sweetness levels and toppings to their exact preferences. This phenomenon is not merely superficial; it serves as a mirror reflecting the Taiwanese pursuit of 'tiny happiness' and the desire for personalized comfort amidst a fast-paced lifestyle.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding the balance between psychological satisfaction and physical well-being. If I were to evaluate my family's perspective on these beverages, I would contend that while we acknowledge them as a delightful treat that relieves stress, we remain wary of the potential health risks associated with excessive sugar intake. Consequently, to enjoy these drinks without compromising our health, my approach would be to treat them as an occasional indulgence rather than a daily necessity, and to opt for sugar-free tea or fresh fruit alternatives. Ultimately, the hand-shaken drink culture acts as a catalyst, compelling us to rethink how we make conscious dietary choices in an environment filled with temptation.",
-                translation: "在現代生存的背景下，很少有主題能像台灣手搖飲料的普及那樣引起如此多的沉思。無論是透過台灣飲食文化還是日常習慣的視角來看，很明顯地，拿著一杯珍珠奶茶已經成為在地生活的象徵。具體來說，關於其極度受歡迎的原因，人們不得不注意到其無與倫比的便利性和高度的客製化，讓消費者能夠根據自己的確切喜好調整甜度和配料。這種現象不僅僅是表面的；它就像一面鏡子，反映了台灣人對「小確幸」的追求，以及在快節奏的生活方式中對個人化慰藉的渴望。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於心理滿足與身體健康之間平衡的重大影響。如果要評估我們家對這些飲料的看法，我會主張雖然我們承認它們是緩解壓力的愉快享受，但我們仍然對與攝入過多糖分相關的潛在健康風險保持警惕。因此，為了在不損害健康的情況下享受這些飲料，我的做法是將它們視為偶爾的放縱，而不是日常必需品，並選擇無糖茶或新鮮水果替代品。最終，手搖飲料文化充當了催化劑，迫使我們重新思考如何在充滿誘惑的環境中做出有意識的飲食選擇。"
+                title: "範文 1: Emojis in Communication (112學測)",
+                image: "112.jpg",
+                prompt: "提示︰隨著社群媒體的普及，表情符號（emoji）的使用也極為普遍。請參考下列表情符號，寫一篇英文作文，文分兩段。第一段說明人們何以喜歡使用表情符號，並從下列的表情符號中舉一至二例，說明表情符號在溝通上有何功能。第二段則以個人或親友的經驗為例，討論表情符號在訊息表達或解讀上可能造成的誤會或困擾，並提出可以化解的方法。",
+                content: "In the context of modern existence, few subjects evoke as much contemplation as the widespread use of emojis in our daily messages. Whether viewed through the lens of social trends or personal experience, it is evident that people enjoy using these symbols because they add emotion to plain text and help save time when typing. Specifically, regarding the images provided in the prompt, one cannot help but notice that the \"laughing with tears\" face (No. 3) effectively shows something is hilarious, while the \"heart eyes\" face (No. 4) clearly expresses love or admiration. This phenomenon is not merely superficial; it serves as a mirror reflecting our strong desire to communicate feelings vividly in a digital world.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding the misunderstandings that can happen when these icons are interpreted incorrectly. If I were to evaluate a personal experience, I would contend that I once caused confusion when my mother sent me the \"crying face\" because she thought it meant she was sad, but it was actually the \"laughing\" emoji (No. 3). Consequently, to solve this kind of problem, my approach would be to always use text to explain my true meaning if the emoji might be unclear, or simply ask the other person for clarification. Ultimately, using emojis acts as a catalyst, compelling us to rethink how we express ourselves carefully to ensure our messages are understood.",
+                translation: "在現代生存的背景下，很少有主題能像在我們日常訊息中廣泛使用表情符號那樣引起如此多的沉思。無論是透過社會趨勢還是個人經驗的視角來看，很明顯地，人們喜歡使用這些符號，因為它們為平淡的文字增添了情感，並有助於在打字時節省時間。具體來說，關於提示中提供的圖片，人們不得不注意到「笑到流淚」的臉（3號）有效地顯示了某事非常滑稽，而「眼冒愛心」的臉（4號）則清楚地表達了愛意或欽佩。這種現象不僅僅是表面的；它就像一面鏡子，反映了我們在數位世界中生動傳達情感的強烈渴望。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於當這些圖標被錯誤解讀時可能發生的誤會的重大影響。如果要評估一次個人經驗，我會主張我曾經造成困惑，因為我媽媽寄給我「哭臉」，因為她以為那代表她很難過，但其實那是「大笑」的表情符號（3號）。因此，為了解決這類問題，我的做法是如果表情符號可能不清楚，就總是使用文字來解釋我的真實含義，或者直接詢問對方以澄清。最終，使用表情符號充當了催化劑，迫使我們重新思考如何謹慎地表達自己，以確保我們的訊息被理解。"
             },
             {
                 id: 2,
-                title: "範文 2: Pride of Taiwan",
-                prompt: "提示：身為臺灣的一份子，臺灣最讓你感到驕傲的是什麼？請以此為題，寫一篇英文作文，談臺灣最讓你引以為榮的二個面向或事物（例如：人、事、物、文化、制度等）。第一段描述這二個面向或事物，並說明它們為何讓你引以為榮；第二段則說明你認為可以用什麼方式來介紹或行銷這些臺灣特色，讓世人更了解臺灣。",
-                content: "In the context of modern existence, few subjects evoke as much contemplation as the unique charm of my homeland, Taiwan. Whether viewed through the lens of a local resident or an international traveler, it is evident that this island possesses a distinct allure that captivates the soul. Specifically, regarding what makes me proudest, one cannot help but notice the warmth of human kindness and the convenient, sleepless vibrancy of our night markets. This phenomenon is not merely superficial; it serves as a mirror reflecting Taiwan's spirit of inclusivity and its dynamic, unflagging energy.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we can project this soft power to the global stage. If I were to evaluate the best strategy to introduce these features, I would contend that experiential storytelling is far more powerful than mere slogans. Consequently, to market Taiwan to the world, my approach would be to launch social media campaigns that invite influencers to 'live a day as a local,' immersing them in the authentic warmth and culinary delights we offer. Ultimately, this cultural promotion acts as a catalyst, compelling us to rethink how we define our identity and share our treasures with the global community.",
-                translation: "在現代生存的背景下，很少有主題能像我家鄉——台灣——的獨特魅力那樣引起如此多的沉思。無論是透過當地居民還是國際旅客的視角來看，很明顯地，這座島嶼擁有獨特的吸引力，能迷住靈魂。具體來說，關於讓我最感驕傲的事物，人們不得不注意到濃厚的人情味以及便利、不夜城的夜市活力。這種現象不僅僅是表面的；它就像一面鏡子，反映了台灣的包容精神及其充滿活力、不懈的能量。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於我們如何將這種軟實力投射到全球舞台的重大影響。如果要評估介紹這些特色的最佳策略，我會主張體驗式的故事講述遠比單純的口號強大得多。因此，為了向世界行銷台灣，我的做法是發起社群媒體活動，邀請網紅「像當地人一樣生活一天」，讓他們沉浸在我們提供的真實溫暖和美食佳餚中。最終，這種文化推廣充當了催化劑，迫使我們重新思考如何定義我們的身份並與全球社群分享我們的珍寶。"
+                title: "範文 2: Robot Helper (113學測)",
+                image: "113.jpg",
+                prompt: "提示︰這個世代的青少年除了有課業壓力外，生活上也常面對一些困擾與挑戰。下列三張圖分別呈現青少年經常遭遇的三種問題，如果你有一個機器人小幫手可以幫你解決其中一個問題，你會選擇哪一個？請寫一篇英文作文，文分兩段，第一段說明你最想解決哪一個問題，並解釋原因。第二段說明你希望這個機器人小幫手具備什麼特質或能力、可以如何和你分工合作來解決此問題。",
+                content: "In the context of modern existence, few subjects evoke as much contemplation as the intense emotional pressure faced by today's teenagers. Whether viewed through the lens of social trends or personal experience, it is evident that many students feel they must hide their true feelings and always appear happy to fit in with their peers. Specifically, regarding the third panel in the image, one cannot help but notice a young person holding up a smiling mask to cover a face that is actually crying or angry. This phenomenon is not merely superficial; it serves as a mirror reflecting the loneliness of growing up and the difficulty of finding someone to trust with our negative emotions.\n\nWhile the aforementioned observations provide the context of this mental burden, a deeper reflection reveals significant implications regarding how a robot helper could improve my daily life. If I were to evaluate the three problems presented, I would contend that I most want to solve the issue of emotional suppression because keeping sadness inside is unhealthy. Consequently, to manage my mental health better, my approach would be to design a robot with \"active listening\" capabilities that can analyze my voice to detect stress and then play soothing music or offer advice to cheer me up. Ultimately, this advanced technology acts as a catalyst, compelling us to rethink how we process our feelings and forcing us to learn that it is okay to be imperfect.",
+                translation: "在現代生存的背景下，很少有主題能像當今青少年面臨的巨大情緒壓力那樣引起如此多的沉思。無論是透過社會趨勢還是個人經驗的視角來看，很明顯地，許多學生覺得他們必須隱藏真實感受，總是表現得快樂以融入同儕。具體來說，關於圖片中的第三格，人們不得不注意到一個年輕人拿著笑臉面具來掩蓋一張實際上在哭泣或生氣的臉。這種現象不僅僅是表面的；它就像一面鏡子，反映了成長的孤獨以及找到一個可以信任並傾訴負面情緒的人的困難。\n\n雖然上述觀察提供了這種心理負擔的背景，但更深入的反思揭示了關於機器人小幫手如何改善我日常生活的重大影響。如果要評估所提出的三個問題，我會主張我最想解決情緒壓抑的問題，因為將悲傷悶在心裡是不健康的。因此，為了更好地管理我的心理健康，我的做法是設計一個具有「積極傾聽」能力的機器人，它可以分析我的聲音以檢測壓力，然後播放舒緩的音樂或提供建議來讓我振作起來。最終，這項先進科技充當了催化劑，迫使我們重新思考如何處理我們的感受，並迫使我們學習接受不完美是可以的。"
             },
             {
                 id: 3,
@@ -163,7 +161,7 @@ While the aforementioned observations provide the context, a deeper reflection r
                 stop();
                 setState('playing');
                 try {
-                    // 簡單清理文字，讓朗讀更順暢 (移除 [P1], [1] 等標記)
+                    // 簡單清理文字，讓朗讀更順暢
                     const cleanText = text.replace(/\[P\d+\]/g, '').replace(/\[\d+\]/g, '');
                     const encoded = encodeURIComponent(cleanText);
                     const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encoded}`;
@@ -173,7 +171,6 @@ While the aforementioned observations provide the context, a deeper reflection r
                     audio.onerror = () => playFallback(cleanText);
                     await audio.play();
                 } catch (e) {
-                    // Fallback will use the cleaned text
                     playFallback(text.replace(/\[P\d+\]/g, '').replace(/\[\d+\]/g, ''));
                 }
             };
@@ -345,12 +342,19 @@ While the aforementioned observations provide the context, a deeper reflection r
                     
                     <div className="bg-gray-100 p-3 rounded-lg mb-4 text-sm text-gray-600 leading-relaxed border-l-4 border-gray-300">
                         {essay.prompt}
+                        {essay.image && (
+                            <div className="mt-3 rounded-lg overflow-hidden border border-gray-200">
+                                <img src={essay.image} alt="Topic" className="w-full h-auto object-cover" />
+                            </div>
+                        )}
                     </div>
 
                     <AudioControl text={essay.content} />
                     
-                    <div className="mb-4">
-                        <TextParser text={essay.content} onActivate={onActivate} activeId={activePopoverKey} isQuizMode={isQuizMode} />
+                    <div className="mb-4 space-y-4">
+                        {essay.content.split('\n\n').map((paragraph, index) => (
+                            <TextParser key={index} text={paragraph} onActivate={onActivate} activeId={activePopoverKey} isQuizMode={isQuizMode} />
+                        ))}
                     </div>
 
                     <button 
