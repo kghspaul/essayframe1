@@ -54,46 +54,74 @@
 
         // --- 資料庫 (已更新為適用新範文的單字) ---
         const VOCAB_DB = {
-            // Template Words (保留模板常用字)
-            "existence": { kk: "[ɪgˋzɪstəns]", pos: "n.", def: "生活；生活方式", ex: "Stress is often a part of modern existence." },
-            "prevalence": { kk: "[ˋprɛvələns]", pos: "n.", def: "流行；普及", ex: "The prevalence of smartphones is undeniable." },
-            "contemplation": { kk: "[͵kɑntɛmˋpleʃən]", pos: "n.", def: "沉思；凝視", ex: "He sat in quiet contemplation of the view." },
-            "evoke": { kk: "[ɪˋvok]", pos: "v.", def: "喚起；引起", ex: "The music evoked memories of her youth." },
-            "lens": { kk: "[lɛnz]", pos: "n.", def: "鏡頭；視角", ex: "Try to look at the problem through a different lens." },
-            "evident": { kk: "[ˋɛvədənt]", pos: "adj.", def: "明顯的", ex: "It is evident that you are tired." },
-            "symbol": { kk: "[ˋsɪmb!]", pos: "n.", def: "象徵", ex: "The dove is a symbol of peace." },
-            "superficial": { kk: "[͵supɚˋfɪʃəl]", pos: "adj.", def: "表面的；膚淺的", ex: "His injury was only superficial." },
-            "phenomenon": { kk: "[fəˋnɑmə͵nɑn]", pos: "n.", def: "現象", ex: "Snow in July is a rare phenomenon." },
-            "implications": { kk: "[͵ɪmplɪˋkeʃənz]", pos: "n.", def: "影響；暗示", ex: "We must consider the long-term implications." },
-            "catalyst": { kk: "[ˋkætəlɪst]", pos: "n.", def: "催化劑；推手", ex: "The protest was a catalyst for change." },
-            "contend": { kk: "[kənˋtɛnd]", pos: "v.", def: "主張；競爭", ex: "I contend that this is the best option." },
-            "compelling": { kk: "[kəmˋpɛlɪŋ]", pos: "adj.", def: "令人信服的；強制的", ex: "There is compelling evidence." },
-            
-            // New Essay 1 Words (112 Emoji)
-            "hilarious": { kk: "[hɪˋlɛrɪəs]", pos: "adj.", def: "極可笑的", ex: "The movie was absolutely hilarious." },
-            "admiration": { kk: "[͵ædməˋreʃən]", pos: "n.", def: "欽佩；讚賞", ex: "I have great admiration for her courage." },
-            "vividly": { kk: "[ˋvɪvɪdlɪ]", pos: "adv.", def: "生動地；清晰地", ex: "I vividly remember that day." },
-            "interpreted": { kk: "[ɪnˋtɝprɪtɪd]", pos: "v.", def: "被解讀；被解釋", ex: "His silence was interpreted as agreement." },
-            "clarification": { kk: "[͵klærəfəˋkeʃən]", pos: "n.", def: "澄清；說明", ex: "Please ask for clarification if you are unsure." },
-            
-            // New Essay 2 Words (113 Robot)
-            "intense": { kk: "[ɪnˋtɛns]", pos: "adj.", def: "強烈的；劇烈的", ex: "The heat was intense." },
-            "suppression": { kk: "[səˋprɛʃən]", pos: "n.", def: "壓抑；鎮壓", ex: "The suppression of emotions can be harmful." },
-            "burden": { kk: "[ˋbɝdn]", pos: "n.", def: "重擔；負擔", ex: "He carries a heavy burden." },
-            "capabilities": { kk: "[͵kepəˋbɪlətɪz]", pos: "n.", def: "能力；性能", ex: "This robot has advanced capabilities." },
-            "soothing": { kk: "[ˋsuðɪŋ]", pos: "adj.", def: "撫慰的；使人平靜的", ex: "She played some soothing music." },
-            
-            // Essay 3 Words (Doomsday - Keep relevant ones)
-            "recurring": { kk: "[rɪˋkɝɪŋ]", pos: "adj.", def: "反覆出現的", ex: "It is a recurring problem." },
-            "emergence": { kk: "[ɪˋmɝdʒəns]", pos: "n.", def: "出現；浮現", ex: "The emergence of AI changed everything." },
-            "superstition": { kk: "[͵supɚˋstɪʃən]", pos: "n.", def: "迷信", ex: "It is a superstition to avoid black cats." },
-            "propagate": { kk: "[ˋprɑpə͵get]", pos: "v.", def: "傳播；繁殖", ex: "Rumors propagate quickly online." },
-            "vulnerability": { kk: "[͵vʌlnərəˋbɪlətɪ]", pos: "n.", def: "脆弱性", ex: "He admitted his vulnerability." },
-            "desperate": { kk: "[ˋdɛspərɪt]", pos: "adj.", def: "絕望的；極度渴望的", ex: "They made a desperate attempt to escape." },
-            "mortality": { kk: "[mɔrˋtælətɪ]", pos: "n.", def: "必死性；死亡率", ex: "Humans are aware of their mortality." },
-            "cherish": { kk: "[ˋtʃɛrɪʃ]", pos: "v.", def: "珍惜", ex: "I cherish our time together." },
-            "imminent": { kk: "[ˋɪmənənt]", pos: "adj.", def: "即將發生的", ex: "A storm is imminent." },
-            "hypothetical": { kk: "[͵haɪpəˋθɛtɪk!]", pos: "adj.", def: "假設的", ex: "This is a hypothetical situation." }
+            "existence": { "kk": "[ɪgˋzɪstəns]", "pos": "n.", "def": "生活；生活方式", "ex": "Stress is often a part of modern existence." },
+            "prevalence": { "kk": "[ˋprɛvələns]", "pos": "n.", "def": "流行；普及", "ex": "The prevalence of smartphones is undeniable." },
+            "contemplation": { "kk": "[͵kɑntɛmˋpleʃən]", "pos": "n.", "def": "沉思；凝視", "ex": "He sat in quiet contemplation of the view." },
+            "evoke": { "kk": "[ɪˋvok]", "pos": "v.", "def": "喚起；引起", "ex": "The music evoked memories of her youth." },
+            "lens": { "kk": "[lɛnz]", "pos": "n.", "def": "鏡頭；視角", "ex": "Try to look at the problem through a different lens." },
+            "evident": { "kk": "[ˋɛvədənt]", "pos": "adj.", "def": "明顯的", "ex": "It is evident that you are tired." },
+            "symbol": { "kk": "[ˋsɪmb!]", "pos": "n.", "def": "象徵", "ex": "The dove is a symbol of peace." },
+            "superficial": { "kk": "[͵supɚˋfɪʃəl]", "pos": "adj.", "def": "表面的；膚淺的", "ex": "His injury was only superficial." },
+            "phenomenon": { "kk": "[fəˋnɑmə͵nɑn]", "pos": "n.", "def": "現象", "ex": "Snow in July is a rare phenomenon." },
+            "implications": { "kk": "[͵ɪmplɪˋkeʃənz]", "pos": "n.", "def": "影響；暗示；意義", "ex": "We must consider the long-term implications." },
+            "catalyst": { "kk": "[ˋkætəlɪst]", "pos": "n.", "def": "催化劑；推手", "ex": "The protest was a catalyst for change." },
+            "contend": { "kk": "[kənˋtɛnd]", "pos": "v.", "def": "主張；競爭", "ex": "I contend that this is the best option." },
+            "compelling": { "kk": "[kəmˋpɛlɪŋ]", "pos": "adj.", "def": "令人信服的；強制的", "ex": "There is compelling evidence." },
+            "hilarious": { "kk": "[hɪˋlɛrɪəs]", "pos": "adj.", "def": "極可笑的", "ex": "The movie was absolutely hilarious." },
+            "admiration": { "kk": "[͵ædməˋreʃən]", "pos": "n.", "def": "欽佩；讚賞", "ex": "I have great admiration for her courage." },
+            "vividly": { "kk": "[ˋvɪvɪdlɪ]", "pos": "adv.", "def": "生動地；清晰地", "ex": "I vividly remember that day." },
+            "interpreted": { "kk": "[ɪnˋtɝprɪtɪd]", "pos": "v.", "def": "被解讀；被解釋", "ex": "His silence was interpreted as agreement." },
+            "clarification": { "kk": "[͵klærəfəˋkeʃən]", "pos": "n.", "def": "澄清；說明", "ex": "Please ask for clarification if you are unsure." },
+            "intense": { "kk": "[ɪnˋtɛns]", "pos": "adj.", "def": "強烈的；劇烈的", "ex": "The heat was intense." },
+            "suppression": { "kk": "[səˋprɛʃən]", "pos": "n.", "def": "壓抑；鎮壓", "ex": "The suppression of emotions can be harmful." },
+            "burden": { "kk": "[ˋbɝdn]", "pos": "n.", "def": "重擔；負擔", "ex": "He carries a heavy burden." },
+            "capabilities": { "kk": "[͵kepəˋbɪlətɪz]", "pos": "n.", "def": "能力；性能", "ex": "This robot has advanced capabilities." },
+            "soothing": { "kk": "[ˋsuðɪŋ]", "pos": "adj.", "def": "撫慰的；使人平靜的", "ex": "She played some soothing music." },
+            "recurring": { "kk": "[rɪˋkɝɪŋ]", "pos": "adj.", "def": "反覆出現的", "ex": "It is a recurring problem." },
+            "emergence": { "kk": "[ɪˋmɝdʒəns]", "pos": "n.", "def": "出現；浮現", "ex": "The emergence of AI changed everything." },
+            "superstition": { "kk": "[͵supɚˋstɪʃən]", "pos": "n.", "def": "迷信", "ex": "It is a superstition to avoid black cats." },
+            "propagate": { "kk": "[ˋprɑpə͵get]", "pos": "v.", "def": "傳播；繁殖", "ex": "Rumors propagate quickly online." },
+            "vulnerability": { "kk": "[͵vʌlnərəˋbɪlətɪ]", "pos": "n.", "def": "脆弱性", "ex": "He admitted his vulnerability." },
+            "desperate": { "kk": "[ˋdɛspərɪt]", "pos": "adj.", "def": "絕望的；極度渴望的", "ex": "They made a desperate attempt to escape." },
+            "mortality": { "kk": "[mɔrˋtælətɪ]", "pos": "n.", "def": "必死性；死亡率", "ex": "Humans are aware of their mortality." },
+            "cherish": { "kk": "[ˋtʃɛrɪʃ]", "pos": "v.", "def": "珍惜", "ex": "I cherish our time together." },
+            "imminent": { "kk": "[ˋɪmənənt]", "pos": "adj.", "def": "即將發生的", "ex": "A storm is imminent." },
+            "hypothetical": { "kk": "[͵haɪpəˋθɛtɪk!]", "pos": "adj.", "def": "假設的", "ex": "This is a hypothetical situation." },
+            "context": { "kk": "[ˋkɑntɛkst]", "pos": "n.", "def": "背景；語境", "ex": "In this context, his words make sense." },
+            "plain text": { "kk": "[plen tɛkst]", "pos": "n.", "def": "純文字", "ex": "Emails are often sent as plain text." },
+            "regarding": { "kk": "[rɪˋgɑrdɪŋ]", "pos": "prep.", "def": "關於；至於", "ex": "I have a question regarding your email." },
+            "prompt": { "kk": "[prɑmpt]", "pos": "n.", "def": "提示；題目", "ex": "Follow the writing prompt carefully." },
+            "serves as": { "kk": "[sɝvz æz]", "pos": "phr.", "def": "充當；以此為...", "ex": "This room serves as a guest bedroom." },
+            "aforementioned": { "kk": "[əˋfɔr͵mɛnʃənd]", "pos": "adj.", "def": "上述的", "ex": "The aforementioned plan was rejected." },
+            "observations": { "kk": "[͵ɑbzɝˋveʃənz]", "pos": "n.", "def": "觀察", "ex": "Her observations were sharp and accurate." },
+            "reflection": { "kk": "[rɪˋflɛkʃən]", "pos": "n.", "def": "反思；倒影", "ex": "After some reflection, I decided to stay." },
+            "were to": { "kk": "[wɝ tu]", "pos": "phr.", "def": "(假設語氣) 如果要...", "ex": "If I were to ask, would you help?" },
+            "evaluate": { "kk": "[ɪˋvæljʊ͵et]", "pos": "v.", "def": "評估", "ex": "We need to evaluate the situation." },
+            "approach": { "kk": "[əˋprotʃ]", "pos": "n.", "def": "方法；途徑", "ex": "We need a new approach to this problem." },
+            "ultimately": { "kk": "[ˋʌltəmɪtlɪ]", "pos": "adv.", "def": "最終；根本上", "ex": "Ultimately, it is your decision." },
+            "specifically": { "kk": "[spɪˋsɪfɪklɪ]", "pos": "adv.", "def": "具體來說", "ex": "I specifically asked for no onions." },
+            "panel": { "kk": "[ˋpæn!]", "pos": "n.", "def": "(漫畫)格；嵌板；小組", "ex": "Look at the third panel of the comic." },
+            "analyze": { "kk": "[ˋæn!͵aɪz]", "pos": "v.", "def": "分析", "ex": "He tried to analyze the data." },
+            "detect": { "kk": "[dɪˋtɛkt]", "pos": "v.", "def": "偵測；察覺", "ex": "I detected a slight change in his tone." },
+            "advanced": { "kk": "[ədˋvænst]", "pos": "adj.", "def": "先進的；高級的", "ex": "The car has advanced safety features." },
+            "act as": { "kk": "[ækt æz]", "pos": "phr.", "def": "充當；擔任", "ex": "He will act as our guide." },
+            "imperfect": { "kk": "[ɪmˋpɝfɪkt]", "pos": "adj.", "def": "不完美的", "ex": "The system is imperfect but useful." },
+            "trigger": { "kk": "[ˋtrɪgɚ]", "pos": "v.", "def": "觸發；引起", "ex": "Smoke triggered the fire alarm." },
+            "panic": { "kk": "[ˋpænɪk]", "pos": "n.", "def": "恐慌", "ex": "Don't panic in an emergency." },
+            "suspicion": { "kk": "[səˋspɪʃən]", "pos": "n.", "def": "懷疑", "ex": "I have a suspicion that he is lying." },
+            "massive": { "kk": "[ˋmæsɪv]", "pos": "adj.", "def": "巨大的；大量的", "ex": "A massive rock blocked the road." },
+            "propagates": { "kk": "[ˋprɑpə͵gets]", "pos": "v.", "def": "傳播；繁衍", "ex": "Light propagates in straight lines." },
+            "humanity": { "kk": "[hjuˋmænətɪ]", "pos": "n.", "def": "人類；人性", "ex": "We must have faith in humanity." },
+            "inherent": { "kk": "[ɪnˋhɛrənt]", "pos": "adj.", "def": "固有的；與生俱來的", "ex": "There are risks inherent in this sport." },
+            "unpredictable": { "kk": "[͵ʌnprɪˋdɪktəb!]", "pos": "adj.", "def": "不可預測的", "ex": "The weather is very unpredictable." },
+            "perceive": { "kk": "[pɚˋsiv]", "pos": "v.", "def": "察覺；看待", "ex": "How do you perceive this situation?" },
+            "credibility": { "kk": "[͵krɛdəˋbɪlətɪ]", "pos": "n.", "def": "可信度", "ex": "The scandal damaged his credibility." },
+            "prophecies": { "kk": "[ˋprɑfəsɪz]", "pos": "n.", "def": "預言", "ex": "Ancient prophecies spoke of a hero." },
+            "accurate": { "kk": "[ˋækjərɪt]", "pos": "adj.", "def": "準確的", "ex": "The clock is not very accurate." },
+            "philosophical": { "kk": "[͵fɪləˋsɑfɪk!]", "pos": "adj.", "def": "哲學的；豁達的", "ex": "He was philosophical about the loss." },
+            "give in to": { "kk": "[gɪv ɪn tu]", "pos": "phr.", "def": "屈服於", "ex": "Never give in to despair." },
+            "gratitude": { "kk": "[ˋgrætə͵tjud]", "pos": "n.", "def": "感激", "ex": "She smiled with gratitude." },
+            "scenario": { "kk": "[sɪˋnɛrɪ͵o]", "pos": "n.", "def": "情境；劇本", "ex": "Imagine a worst-case scenario." }
         };
 
         const FOOTNOTE_DB = {
@@ -126,7 +154,7 @@ While the aforementioned observations provide the context, a deeper reflection r
                 image: "112.jpg",
                 prompt: "提示︰隨著社群媒體的普及，表情符號（emoji）的使用也極為普遍。請參考下列表情符號，寫一篇英文作文，文分兩段。第一段說明人們何以喜歡使用表情符號，並從下列的表情符號中舉一至二例，說明表情符號在溝通上有何功能。第二段則以個人或親友的經驗為例，討論表情符號在訊息表達或解讀上可能造成的誤會或困擾，並提出可以化解的方法。",
                 content: "In the context of modern existence, few subjects evoke as much contemplation as the widespread use of emojis in our daily messages. Whether viewed through the lens of social trends or personal experience, it is evident that people enjoy using these symbols because they add emotion to plain text and help save time when typing. Specifically, regarding the images provided in the prompt, one cannot help but notice that the \"laughing with tears\" face (No. 3) effectively shows something is hilarious, while the \"heart eyes\" face (No. 4) clearly expresses love or admiration. This phenomenon is not merely superficial; it serves as a mirror reflecting our strong desire to communicate feelings vividly in a digital world.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding the misunderstandings that can happen when these icons are interpreted incorrectly. If I were to evaluate a personal experience, I would contend that I once caused confusion when my mother sent me the \"crying face\" because she thought it meant she was sad, but it was actually the \"laughing\" emoji (No. 3). Consequently, to solve this kind of problem, my approach would be to always use text to explain my true meaning if the emoji might be unclear, or simply ask the other person for clarification. Ultimately, using emojis acts as a catalyst, compelling us to rethink how we express ourselves carefully to ensure our messages are understood.",
-                translation: "在現代生存的背景下，很少有主題能像在我們日常訊息中廣泛使用表情符號那樣引起如此多的沉思。無論是透過社會趨勢還是個人經驗的視角來看，很明顯地，人們喜歡使用這些符號，因為它們為平淡的文字增添了情感，並有助於在打字時節省時間。具體來說，關於提示中提供的圖片，人們不得不注意到「笑到流淚」的臉（3號）有效地顯示了某事非常滑稽，而「眼冒愛心」的臉（4號）則清楚地表達了愛意或欽佩。這種現象不僅僅是表面的；它就像一面鏡子，反映了我們在數位世界中生動傳達情感的強烈渴望。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於當這些圖標被錯誤解讀時可能發生的誤會的重大影響。如果要評估一次個人經驗，我會主張我曾經造成困惑，因為我媽媽寄給我「哭臉」，因為她以為那代表她很難過，但其實那是「大笑」的表情符號（3號）。因此，為了解決這類問題，我的做法是如果表情符號可能不清楚，就總是使用文字來解釋我的真實含義，或者直接詢問對方以澄清。最終，使用表情符號充當了催化劑，迫使我們重新思考如何謹慎地表達自己，以確保我們的訊息被理解。"
+                translation: "在現代生活的背景下，很少有主題能像在我們日常訊息中廣泛使用表情符號那樣引起如此多的沉思。無論是透過社會趨勢還是個人經驗的視角來看，很明顯地，人們喜歡使用這些符號，因為它們為平淡的文字增添了情感，並有助於在打字時節省時間。具體來說，關於提示中提供的圖片，人們不得不注意到「笑到流淚」的臉（3號）有效地顯示了某事非常滑稽，而「眼冒愛心」的臉（4號）則清楚地表達了愛意或欽佩。這種現象不僅僅是表面的；它就像一面鏡子，反映了我們在數位世界中生動傳達情感的強烈渴望。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於當這些圖標被錯誤解讀時可能發生的誤會的重大影響。如果要評估一次個人經驗，我會主張我曾經造成困惑，因為我媽媽寄給我「哭臉」，因為她以為那代表她很難過，但其實那是「大笑」的表情符號（3號）。因此，為了解決這類問題，我的做法是如果表情符號可能不清楚，就總是使用文字來解釋我的真實含義，或者直接詢問對方以澄清。最終，使用表情符號充當了催化劑，迫使我們重新思考如何謹慎地表達自己，以確保我們的訊息被理解。"
             },
             {
                 id: 2,
@@ -134,14 +162,14 @@ While the aforementioned observations provide the context, a deeper reflection r
                 image: "113.jpg",
                 prompt: "提示︰這個世代的青少年除了有課業壓力外，生活上也常面對一些困擾與挑戰。下列三張圖分別呈現青少年經常遭遇的三種問題，如果你有一個機器人小幫手可以幫你解決其中一個問題，你會選擇哪一個？請寫一篇英文作文，文分兩段，第一段說明你最想解決哪一個問題，並解釋原因。第二段說明你希望這個機器人小幫手具備什麼特質或能力、可以如何和你分工合作來解決此問題。",
                 content: "In the context of modern existence, few subjects evoke as much contemplation as the intense emotional pressure faced by today's teenagers. Whether viewed through the lens of social trends or personal experience, it is evident that many students feel they must hide their true feelings and always appear happy to fit in with their peers. Specifically, regarding the third panel in the image, one cannot help but notice a young person holding up a smiling mask to cover a face that is actually crying or angry. This phenomenon is not merely superficial; it serves as a mirror reflecting the loneliness of growing up and the difficulty of finding someone to trust with our negative emotions.\n\nWhile the aforementioned observations provide the context of this mental burden, a deeper reflection reveals significant implications regarding how a robot helper could improve my daily life. If I were to evaluate the three problems presented, I would contend that I most want to solve the issue of emotional suppression because keeping sadness inside is unhealthy. Consequently, to manage my mental health better, my approach would be to design a robot with \"active listening\" capabilities that can analyze my voice to detect stress and then play soothing music or offer advice to cheer me up. Ultimately, this advanced technology acts as a catalyst, compelling us to rethink how we process our feelings and forcing us to learn that it is okay to be imperfect.",
-                translation: "在現代生存的背景下，很少有主題能像當今青少年面臨的巨大情緒壓力那樣引起如此多的沉思。無論是透過社會趨勢還是個人經驗的視角來看，很明顯地，許多學生覺得他們必須隱藏真實感受，總是表現得快樂以融入同儕。具體來說，關於圖片中的第三格，人們不得不注意到一個年輕人拿著笑臉面具來掩蓋一張實際上在哭泣或生氣的臉。這種現象不僅僅是表面的；它就像一面鏡子，反映了成長的孤獨以及找到一個可以信任並傾訴負面情緒的人的困難。\n\n雖然上述觀察提供了這種心理負擔的背景，但更深入的反思揭示了關於機器人小幫手如何改善我日常生活的重大影響。如果要評估所提出的三個問題，我會主張我最想解決情緒壓抑的問題，因為將悲傷悶在心裡是不健康的。因此，為了更好地管理我的心理健康，我的做法是設計一個具有「積極傾聽」能力的機器人，它可以分析我的聲音以檢測壓力，然後播放舒緩的音樂或提供建議來讓我振作起來。最終，這項先進科技充當了催化劑，迫使我們重新思考如何處理我們的感受，並迫使我們學習接受不完美是可以的。"
+                translation: "在現代生活的背景下，很少有主題能像當今青少年面臨的巨大情緒壓力那樣引起如此多的沉思。無論是透過社會趨勢還是個人經驗的視角來看，很明顯地，許多學生覺得他們必須隱藏真實感受，總是表現得快樂以融入同儕。具體來說，關於圖片中的第三格，人們不得不注意到一個年輕人拿著笑臉面具來掩蓋一張實際上在哭泣或生氣的臉。這種現象不僅僅是表面的；它就像一面鏡子，反映了成長的孤獨以及找到一個可以信任並傾訴負面情緒的人的困難。\n\n雖然上述觀察提供了這種心理負擔的背景，但更深入的反思揭示了關於機器人小幫手如何改善我日常生活的重大影響。如果要評估所提出的三個問題，我會主張我最想解決情緒壓抑的問題，因為將悲傷悶在心裡是不健康的。因此，為了更好地管理我的心理健康，我的做法是設計一個具有「積極傾聽」能力的機器人，它可以分析我的聲音以檢測壓力，然後播放舒緩的音樂或提供建議來讓我振作起來。最終，這項先進科技充當了催化劑，迫使我們重新思考如何處理我們的感受，並迫使我們學習接受不完美是可以的。"
             },
             {
                 id: 3,
                 title: "範文 3: Doomsday Prediction",
                 prompt: "提示：每隔一陣子總會出現末日預言(doomsday prediction),如日本有位漫畫家預言 2025 年 7 月 5 日會發生強震重創日本和鄰近國家,此預言引發恐慌,甚至影響各國遊客在該月到日本旅遊的意願。你相信這種末日預言嗎?請寫一篇英文作文,文分兩段,第一段陳述你對末日預言的看法(是迷信還是值得參考), 第二段說明若世界末日真的到來,你會如何度過。",
                 content: "In the context of modern existence, few subjects evoke as much contemplation as the recurring emergence of doomsday predictions. Whether viewed through the lens of superstition or scientific caution, it is evident that such predictions often trigger a mix of panic and suspicion among the public. Specifically, regarding the prediction of a massive earthquake in July 2025, one cannot help but notice how easily fear propagates, affecting even tourism and daily decisions. This phenomenon is not merely superficial; it serves as a mirror reflecting humanity's inherent vulnerability and our desperate need for certainty in an unpredictable world.\n\nWhile the aforementioned observations provide the context, a deeper reflection reveals significant implications regarding how we perceive the value of our limited time. If I were to evaluate the credibility of these prophecies, I would contend that while they are probably not scientifically accurate, they are a valuable philosophical reminder of our mortality. Consequently, if the end of the world were truly imminent, my approach would not be to give in to despair, but to spend my final moments embracing my loved ones and expressing gratitude for the life I have lived. Ultimately, this doomsday scenario acts as a catalyst, compelling us to rethink how we cherish every present moment rather than fearing a hypothetical future.",
-                translation: "在現代生存的背景下，很少有主題能像反覆出現的末日預言那樣引起如此多的沉思。無論是透過迷信還是科學謹慎的視角來看，很明顯地，這類預言往往在公眾中引發恐慌與猜疑的混合情緒。具體來說，關於 2025 年 7 月發生大地震的預言，人們不得不注意到恐懼是多麼容易傳播，甚至影響旅遊和日常決策。這種現象不僅僅是表面的；它就像一面鏡子，反映了人類固有的脆弱性以及我們在不可預測的世界中對確定性的迫切需求。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於我們如何看待有限時間價值的重大影響。如果要評估這些預言的可信度，我會主張雖然它們在科學上可能不準確，但它們是關於我們必死性的寶貴哲學提醒。因此，如果世界末日真的迫在眉睫，我的做法不是屈服於絕望，而是花最後的時刻擁抱我的摯愛，並對我所過的生活表達感激。最終，這個末日情境充當了催化劑，迫使我們重新思考如何珍惜當下的每一刻，而不是恐懼假設的未來。"
+                translation: "在現代生活的背景下，很少有主題能像反覆出現的末日預言那樣引起如此多的沉思。無論是透過迷信還是科學謹慎的視角來看，很明顯地，這類預言往往在公眾中引發恐慌與猜疑的混合情緒。具體來說，關於 2025 年 7 月發生大地震的預言，人們不得不注意到恐懼是多麼容易傳播，甚至影響旅遊和日常決策。這種現象不僅僅是表面的；它就像一面鏡子，反映了人類固有的脆弱性以及我們在不可預測的世界中對確定性的迫切需求。\n\n雖然上述觀察提供了背景，但更深入的反思揭示了關於我們如何看待有限時間價值的重大影響。如果要評估這些預言的可信度，我會主張雖然它們在科學上可能不準確，但它們是關於我們必死性的寶貴哲學提醒。因此，如果世界末日真的迫在眉睫，我的做法不是屈服於絕望，而是花最後的時刻擁抱我的摯愛，並對我所過的生活表達感激。最終，這個末日情境充當了催化劑，迫使我們重新思考如何珍惜當下的每一刻，而不是恐懼假設的未來。"
             }
         ];
 
