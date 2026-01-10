@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BDSKB7YSY"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G-7BDSKB7YSY"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -173,57 +173,90 @@ While the aforementioned observations provide the context, a deeper reflection r
             }
         ];
 
-        // --- 核心元件 ---
+// --- 核心元件 ---
 
-        const useAudioPlayer = (text) => {
-            const [state, setState] = useState('idle'); 
-            const audioRef = useRef(null);
-            const synthRef = useRef(window.speechSynthesis);
+const useAudioPlayer = (text) => {
+            const [state, setState] = useState('idle');
+            const synth = window.speechSynthesis;
+            const utteranceRef = useRef(null);
+
+            const getCleanText = (rawText) => {
+                return rawText.replace(/\[P\d+\]/g, '').replace(/\[\d+\]/g, '');
+            };
 
             const stop = () => {
-                if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
-                if (synthRef.current.speaking || synthRef.current.paused) { synthRef.current.cancel(); }
+                if (synth.speaking || synth.paused) {
+                    synth.cancel();
+                }
                 setState('idle');
             };
 
-            const play = async () => {
+            const play = () => {
                 stop();
-                setState('playing');
-                try {
-                    // 簡單清理文字，讓朗讀更順暢
-                    const cleanText = text.replace(/\[P\d+\]/g, '').replace(/\[\d+\]/g, '');
-                    const encoded = encodeURIComponent(cleanText);
-                    const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=${encoded}`;
-                    const audio = new Audio(url);
-                    audioRef.current = audio;
-                    audio.onended = () => setState('idle');
-                    audio.onerror = () => playFallback(cleanText);
-                    await audio.play();
-                } catch (e) {
-                    playFallback(text.replace(/\[P\d+\]/g, '').replace(/\[\d+\]/g, ''));
-                }
-            };
+                const cleanText = getCleanText(text);
+                if (!cleanText) return;
 
-            const playFallback = (cleanText) => {
                 const u = new SpeechSynthesisUtterance(cleanText);
-                u.lang = 'en-US'; u.rate = 0.9;
+                u.lang = 'en-US'; 
+                u.rate = 0.9;
+                
+                u.onstart = () => setState('playing');
                 u.onend = () => setState('idle');
-                synthRef.current.speak(u);
+                u.onerror = (e) => {
+                    console.error("Speech Error:", e);
+                    setState('idle');
+                };
+
+                utteranceRef.current = u;
+
+                // --- 聲音選擇邏輯 (優化版) ---
+                const voices = synth.getVoices();
+                
+                // 優先順序：Google小姐 -> Edge超自然語音 -> 一般美式英文
+                const preferredVoice = 
+                    voices.find(v => v.name.includes("Google US English")) || 
+                    voices.find(v => v.name.includes("Natural") && v.lang.includes("en-US")) ||
+                    voices.find(v => v.lang === 'en-US');
+
+                if (preferredVoice) {
+                    u.voice = preferredVoice;
+                    // Edge 的 Natural 聲音通常比較慢且清楚，稍微調回標準速度會更自然
+                    if (preferredVoice.name.includes("Natural")) {
+                        u.rate = 1.0; 
+                    }
+                }
+                // ---------------------------
+
+                synth.speak(u);
             };
 
             const pause = () => {
-                if (audioRef.current && !audioRef.current.paused) { audioRef.current.pause(); setState('paused'); }
-                else if (synthRef.current.speaking) { synthRef.current.pause(); setState('paused'); }
+                if (synth.speaking && !synth.paused) {
+                    synth.pause();
+                    setState('paused');
+                }
             };
 
             const resume = () => {
-                 if (audioRef.current && audioRef.current.paused) { audioRef.current.play(); setState('playing'); }
-                else if (synthRef.current.paused) { synthRef.current.resume(); setState('playing'); }
-                else { play(); }
-            }
+                if (synth.paused) {
+                    synth.resume();
+                    setState('playing');
+                } else {
+                    play();
+                }
+            };
+
+            useEffect(() => {
+                const loadVoices = () => { window.speechSynthesis.getVoices(); };
+                window.speechSynthesis.onvoiceschanged = loadVoices;
+                loadVoices();
+                return () => stop();
+            }, []);
 
             return { state, play, pause, resume, stop };
         };
+        // 下面這行不用刪，這裡是你的下一個元件，請保留在這一行上面
+        // const AudioControl = ({ text }) => { ...
 
         const AudioControl = ({ text }) => {
             const { state, play, pause, resume, stop } = useAudioPlayer(text);
@@ -417,6 +450,10 @@ While the aforementioned observations provide the context, a deeper reflection r
 
             return (
                 <div className="flex flex-col h-full bg-white relative">
+{/* 頂部閃爍提示 */}
+                <div className="shrink-0 bg-green-600 text-white text-xs font-bold text-center py-1.5 z-50">
+                     <span className="animate-pulse">📢 朗讀功能已修復</span>
+                </div>
                     
                     {/* Header */}
                     <div className="bg-white/90 backdrop-blur border-b border-gray-200 px-4 py-3 flex justify-between items-center z-20 shrink-0 safe-top gap-3">
